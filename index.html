@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>昱丞 & 于靖 婚禮邀請函 Wedding Invitation</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond, Noto Serif TC & Caveat (英文手寫體) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Noto+Serif+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for premium icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        morandiGold: '#d4a373',
+                        morandiGreen: '#8da399',
+                        warmSand: '#faf6f0',
+                        warmCream: '#f4efe9'
+                    },
+                    fontFamily: {
+                        cormorant: ['"Cormorant Garamond"', 'serif'],
+                        serifTC: ['"Noto Serif TC"', 'serif'],
+                        caveat: ['"Caveat"', 'cursive']
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1.2s ease-out forwards',
+                        'subtle-pulse': 'subtlePulse 3s infinite ease-in-out',
+                        'spin-slow': 'spin 12s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* 載入開源手寫字型「辰宇落雁體」 */
+        @font-face {
+            font-family: 'Chenyuluoyan';
+            src: url('https://cdn.jsdelivr.net/gh/Chenyu-otf/chenyuluoyan_thin@main/ChenYuluoyan-2.0-Thin.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .font-chenyu {
+            font-family: 'Chenyuluoyan', 'Noto Serif TC', serif !important;
+        }
+
+        .font-caveat-custom {
+            font-family: 'Caveat', cursive !important;
+        }
+
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background-color: #faf6f0;
+            color: #4a4a4a;
+            overflow-x: hidden;
+        }
+        .text-cormorant {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        /* Custom delicate scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #faf6f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4a373;
+            border-radius: 3px;
+        }
+        /* Smooth animation effects */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes subtlePulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.03); opacity: 1; }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Leaf falling canvas style */
+        #leafCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 40;
+        }
+
+        /* SCREEN PET ANIMATIONS - ENLARGED DIMENSIONS */
+        @keyframes petWalk {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(4deg); }
+        }
+        @keyframes petSleep {
+            0%, 100% { transform: scale(1) translateY(0); opacity: 0.95; }
+            50% { transform: scale(0.96) translateY(3px); opacity: 0.8; }
+        }
+        @keyframes petWag {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(12deg); }
+        }
+        @keyframes petBark {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.18) translateY(-14px); }
+        }
+        @keyframes zFloat {
+            0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+            50% { opacity: 0.8; }
+            100% { opacity: 0; transform: translate(20px, -40px) scale(1.2); }
+        }
+
+        .pet-walking {
+            animation: petWalk 0.5s infinite ease-in-out;
+        }
+        .pet-sleeping {
+            animation: petSleep 1.8s infinite ease-in-out;
+        }
+        .pet-barking {
+            animation: petBark 0.2s 2 ease-in-out;
+        }
+        .z-sleep {
+            position: absolute;
+            font-size: 14px;
+            color: #d4a373;
+            font-weight: bold;
+            pointer-events: none;
+            animation: zFloat 1.8s infinite linear;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Falling Leaf/Petal Canvas for high aesthetic vibe -->
+    <canvas id="leafCanvas"></canvas>
+
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-md border-b border-white/20 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-caveat-custom text-2xl md:text-3xl font-semibold tracking-[0.2em] text-morandiGold">J & J</a>
+            
+            <!-- Desktop Menu (Aligned with image_fba069.png navigation) -->
+            <div class="hidden md:flex space-x-8 text-sm tracking-widest font-medium text-neutral-600">
+                <a href="#countdown" class="hover:text-morandiGold transition-colors duration-300">倒數計時 COUNTDOWN</a>
+                <a href="#details" class="hover:text-morandiGold transition-colors duration-300">婚禮詳情 DETAILS</a>
+                <a href="#rsvp" class="hover:text-morandiGold transition-colors duration-300">出席回函 RSVP</a>
+            </div>
+
+            <!-- Music Container -->
+            <div class="flex items-center space-x-4">
+                <!-- Procedural Romantic Melodic Synth Player -->
+                <button id="musicBtn" class="w-10 h-10 rounded-full border border-morandiGold/30 flex items-center justify-center text-morandiGold bg-white/40 hover:bg-white/80 transition-all duration-300 focus:outline-none shadow-sm" aria-label="Play Music">
+                    <i id="musicIcon" class="fa-solid fa-music text-sm"></i>
+                </button>
+                <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 flex items-center justify-center text-neutral-700" aria-label="Menu">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Collapse -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-b border-neutral-100 py-6 px-8 flex flex-col space-y-4 text-center tracking-widest text-sm transition-all duration-300">
+            <a href="#countdown" onclick="toggleMobileMenu()" class="block py-2 hover:text-morandiGold text-neutral-600">倒數計時 COUNTDOWN</a>
+            <a href="#details" onclick="toggleMobileMenu()" class="block py-2 hover:text-morandiGold text-neutral-600">婚禮詳情 DETAILS</a>
+            <a href="#rsvp" onclick="toggleMobileMenu()" class="block py-2 hover:text-morandiGold text-neutral-600">出席回函 RSVP</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Wedding Image (Locked to Selected URL) -->
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[4000ms] scale-105 hover:scale-100" 
+             style="background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.3)), url('https://i.postimg.cc/QCCjCJ7P/20260319R7-0446-2.jpg');">
+        </div>
+        
+        <div class="relative z-10 text-center text-white px-4 animate-fade-in-up">
+            <span class="font-caveat-custom text-4xl md:text-5xl text-morandiGold block mb-2 opacity-90 drop-shadow-sm">Save the Date</span>
+            <span class="font-caveat-custom text-cormorant tracking-[0.4em] uppercase text-xs md:text-sm block mb-4 opacity-80">Our Journey of Love</span>
+            <!-- Chinese title configured with Chenyu Luoyan Font -->
+            <h1 class="font-chenyu font-light text-6xl md:text-8xl tracking-wider mb-2 drop-shadow-md">
+                昱丞 <span class="text-3xl md:text-5xl inline-block mx-2 font-normal text-morandiGold">&</span> 于靖
+            </h1>
+            <span class="font-caveat-custom tracking-[0.3em] text-2xl md:text-3xl block mb-6 text-gray-200 font-medium">Johnny & Jessica</span>
+            <div class="w-16 h-[1px] bg-morandiGold/60 mx-auto my-6"></div>
+            <!-- Slogan configured with Chenyu Luoyan Font -->
+            <p class="font-chenyu text-2xl md:text-3xl tracking-[0.2em] mb-8 text-neutral-100 drop-shadow-sm">
+                有你在，冒險才有了意義
+            </p>
+            <p class="font-caveat-custom text-cormorant text-md md:text-lg tracking-[0.2em] uppercase font-light bg-black/30 backdrop-blur-sm inline-block px-8 py-2.5 rounded-full border border-white/25">
+                2026.10.03
+            </p>
+        </div>
+        
+        <!-- Elegant bottom smooth curve wave -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="relative block w-full h-[50px] text-warmSand" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C26.9,8.75,55.05,17.43,83.84,24.3,169.51,44.75,251,69.59,321.39,56.44Z" fill="currentColor"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section id="countdown" class="py-16 md:py-24 bg-warmSand px-4">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <span class="text-cormorant text-xs md:text-sm tracking-[0.3em] text-morandiGold uppercase font-semibold mb-3 block">Countdown</span>
+            <h2 class="font-serifTC text-2xl md:text-3xl tracking-widest text-neutral-800 mb-12 font-light">期待與您見面的時刻</h2>
+            
+            <!-- Premium Shimmer Countdown Card grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
+                
+                <!-- Days Card -->
+                <div class="relative overflow-hidden bg-white/90 backdrop-blur-sm rounded-2xl p-5 md:p-6 shadow-[0_8px_30px_rgba(212,163,115,0.08)] border border-white/60 flex items-center justify-between transition-transform duration-300 hover:-translate-y-1">
+                    <div class="flex-1 text-center">
+                        <span id="days" class="text-cormorant text-4xl md:text-5xl font-medium text-morandiGold tracking-tighter">00</span>
+                    </div>
+                    <!-- Vertical Divider Line -->
+                    <div class="h-10 w-[1px] bg-neutral-200 mx-1 md:mx-2"></div>
+                    <div class="w-10 text-center">
+                        <span class="text-[10px] tracking-wider text-neutral-500 font-light block">DAYS</span>
+                        <span class="text-[9px] text-neutral-400 font-serifTC block">天</span>
+                    </div>
+                </div>
+
+                <!-- Hours Card -->
+                <div class="relative overflow-hidden bg-white/90 backdrop-blur-sm rounded-2xl p-5 md:p-6 shadow-[0_8px_30px_rgba(212,163,115,0.08)] border border-white/60 flex items-center justify-between transition-transform duration-300 hover:-translate-y-1">
+                    <div class="flex-1 text-center">
+                        <span id="hours" class="text-cormorant text-4xl md:text-5xl font-medium text-morandiGold tracking-tighter">00</span>
+                    </div>
+                    <!-- Vertical Divider Line -->
+                    <div class="h-10 w-[1px] bg-neutral-200 mx-1 md:mx-2"></div>
+                    <div class="w-10 text-center">
+                        <span class="text-[10px] tracking-wider text-neutral-500 font-light block">HOURS</span>
+                        <span class="text-[9px] text-neutral-400 font-serifTC block">時</span>
+                    </div>
+                </div>
+
+                <!-- Minutes Card -->
+                <div class="relative overflow-hidden bg-white/90 backdrop-blur-sm rounded-2xl p-5 md:p-6 shadow-[0_8px_30px_rgba(212,163,115,0.08)] border border-white/60 flex items-center justify-between transition-transform duration-300 hover:-translate-y-1">
+                    <div class="flex-1 text-center">
+                        <span id="minutes" class="text-cormorant text-4xl md:text-5xl font-medium text-morandiGold tracking-tighter">00</span>
+                    </div>
+                    <!-- Vertical Divider Line -->
+                    <div class="h-10 w-[1px] bg-neutral-200 mx-1 md:mx-2"></div>
+                    <div class="w-10 text-center">
+                        <span class="text-[10px] tracking-wider text-neutral-500 font-light block">MINS</span>
+                        <span class="text-[9px] text-neutral-400 font-serifTC block">分</span>
+                    </div>
+                </div>
+
+                <!-- Seconds Card -->
+                <div class="relative overflow-hidden bg-white/90 backdrop-blur-sm rounded-2xl p-5 md:p-6 shadow-[0_8px_30px_rgba(212,163,115,0.08)] border border-white/60 flex items-center justify-between transition-transform duration-300 hover:-translate-y-1">
+                    <div class="flex-1 text-center">
+                        <span id="seconds" class="text-cormorant text-4xl md:text-5xl font-medium text-morandiGold tracking-tighter">00</span>
+                    </div>
+                    <!-- Vertical Divider Line -->
+                    <div class="h-10 w-[1px] bg-neutral-200 mx-1 md:mx-2"></div>
+                    <div class="w-10 text-center">
+                        <span class="text-[10px] tracking-wider text-neutral-500 font-light block">SECS</span>
+                        <span class="text-[9px] text-neutral-400 font-serifTC block">秒</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Countdown Romantic Quote (Strictly Preserved) -->
+            <div class="mt-12 max-w-xl mx-auto opacity-95">
+                <!-- 第一句（與下一句保持基本間距 mb-2） -->
+                <p class="font-caveat-custom text-lg md:text-xl tracking-[0.2em] leading-relaxed text-neutral-600 font-bold mb-8">
+                    Wherever you are, I'll always make you smile
+                </p>
+                <!-- 第二句（加上 mb-8 產生特大換行留白） -->
+                <p class="font-caveat-custom text-lg md:text-xl tracking-[0.2em] leading-relaxed text-neutral-600 font-bold mb-16">
+                    Wherever you are, I'm always by your side
+                </p>
+                <!-- 第三句（與下一句保持基本間距 mb-2） -->
+                <p class="font-caveat-custom text-lg md:text-xl tracking-[0.2em] leading-relaxed text-neutral-600 font-bold mb-8">
+                    Whatever you say, 君を思う 気持ち
+                </p>
+                <!-- 第四句 -->
+                <p class="font-caveat-custom text-lg md:text-xl tracking-[0.2em] leading-relaxed text-neutral-600 font-bold">
+                    I promise you "forever" right now
+                </p>
+                <div class="w-8 h-[1px] bg-morandiGold/30 mx-auto mt-6"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Details Section -->
+    <section id="details" class="py-20 bg-warmSand px-4">
+        <div class="max-w-3xl mx-auto space-y-12 reveal">
+            <!-- V-CARD 2: Wedding Details -->
+            <div class="bg-white rounded-3xl shadow-[0_15px_45px_rgba(0,0,0,0.03)] border border-neutral-100 p-8 md:p-16 space-y-10">
+                <div class="text-center">
+                    <span class="font-caveat-custom text-3xl text-morandiGold block">The Celebration</span>
+                    <h2 class="font-serifTC text-2xl md:text-3xl font-medium text-neutral-800 tracking-widest">婚禮詳情</h2>
+                    <div class="w-8 h-[1px] bg-morandiGold/60 mx-auto mt-4"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                    <!-- Ceremony Info -->
+                    <div class="space-y-4 border-b md:border-b-0 md:border-r border-neutral-100 pb-8 md:pb-0 md:pr-8">
+                        <div class="flex items-center space-x-3 text-morandiGold">
+                            <i class="fa-regular fa-bell text-xl"></i>
+                            <h3 class="font-serifTC text-lg font-medium text-neutral-800">證婚儀式</h3>
+                        </div>
+                        <ul class="space-y-2 text-sm text-neutral-600 font-light">
+                            <li><span class="font-medium text-neutral-700 font-serifTC">時間：</span><span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded font-serifTC">16:00 入席</span> | <span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded font-serifTC">16:30 儀式開始</span></li>
+                            <li><span class="font-medium text-neutral-700 font-serifTC">地點：</span><span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded font-serifTC">薇絲山庭 二館戶外證婚區</span></li>
+                            <li><span class="font-medium text-neutral-700">地址：</span><span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded">新竹縣湖口鄉長安路361巷</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Banquet Info -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 text-morandiGold">
+                            <i class="fa-solid fa-utensils text-xl"></i>
+                            <h3 class="font-serifTC text-lg font-medium text-neutral-800">婚禮晚宴</h3>
+                        </div>
+                        <ul class="space-y-2 text-sm text-neutral-600 font-light">
+                            <li><span class="font-medium text-neutral-700 font-serifTC">時間：</span><span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded font-serifTC">17:30 入席</span> | <span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded font-serifTC">18:00 準時開席</span></li>
+                            <li><span class="font-medium text-neutral-700 font-serifTC">地點：</span><span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded font-serifTC">薇絲山庭 二館皇家藍廳院</span></li>
+                            <li><span class="font-medium text-neutral-700">地址：</span><span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded">新竹縣湖口鄉長安路361巷</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dress Code Banner (Highly Aesthetic Morandi Color Swatches) -->
+                <div class="bg-warmSand/60 border border-morandiGold/15 p-6 rounded-2xl text-center space-y-4">
+                    <h4 class="font-serifTC text-md font-medium text-neutral-800 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-shirt text-morandiGold"></i>
+                        <span>著裝守則 DRESS CODE</span>
+                    </h4>
+                    <p class="text-xs md:text-sm text-neutral-500 leading-relaxed font-light">
+                        若能與我們穿著相近的色系，將會是我們最美好的合照留念！<br>我們推薦的色調為：
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-3 pt-2">
+                        <!-- 白色 (White) -->
+                        <div class="flex items-center space-x-1.5 bg-white px-3.5 py-1.5 rounded-full text-xs text-neutral-800 border border-neutral-200 shadow-sm">
+                            <span class="w-3.5 h-3.5 rounded-full bg-white inline-block shadow-inner border border-neutral-300"></span>
+                            <span class="font-serifTC font-medium">白色</span>
+                        </div>
+                        <!-- 米白色 (Off-white/Ivory) -->
+                        <div class="flex items-center space-x-1.5 bg-[#fcfbf7] px-3.5 py-1.5 rounded-full text-xs text-[#6e6b5e] border border-[#f0ece1] shadow-sm">
+                            <span class="w-3.5 h-3.5 rounded-full bg-[#f7f4eb] inline-block shadow-sm border border-[#e3dec9]"></span>
+                            <span class="font-serifTC font-medium">米白色</span>
+                        </div>
+                        <!-- 杏色 (Apricot) -->
+                        <div class="flex items-center space-x-1.5 bg-[#fdf6f0] px-3.5 py-1.5 rounded-full text-xs text-[#a37f62] border border-[#f5e5d6] shadow-sm">
+                            <span class="w-3.5 h-3.5 rounded-full bg-[#f3dfcf] inline-block shadow-sm border border-[#dfc3ab]"></span>
+                            <span class="font-serifTC font-medium">杏色</span>
+                        </div>
+                        <!-- 奶茶色 (Milk Tea) -->
+                        <div class="flex items-center space-x-1.5 bg-[#f7f0e6] px-3.5 py-1.5 rounded-full text-xs text-[#8c7355] border border-[#ebdec9] shadow-sm">
+                            <span class="w-3.5 h-3.5 rounded-full bg-[#d9c5b0] inline-block shadow-sm border border-[#c4ae95]"></span>
+                            <span class="font-serifTC font-medium">奶茶色</span>
+                        </div>
+                        <!-- 淺卡其色 (Light Khaki) -->
+                        <div class="flex items-center space-x-1.5 bg-[#f5f2eb] px-3.5 py-1.5 rounded-full text-xs text-[#7a7361] border border-[#e3dec9] shadow-sm">
+                            <span class="w-3.5 h-3.5 rounded-full bg-[#c9bfa7] inline-block shadow-sm border border-[#b3a78f]"></span>
+                            <span class="font-serifTC font-medium">淺卡其色</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transportation Guide (Accordion) -->
+                <div class="space-y-4 pt-4 border-t border-neutral-100">
+                    <h4 class="font-serifTC text-md font-medium text-neutral-800 flex items-center justify-center space-x-2 mb-2">
+                        <i class="fa-solid fa-map-location-dot text-morandiGold"></i>
+                        <span>交通指引 TRANSPORTATION</span>
+                    </h4>
+                    
+                    <!-- Accordion Item 1: Parking / Driving -->
+                    <div class="accordion-item border border-neutral-200/60 rounded-xl overflow-hidden bg-white">
+                        <button type="button" onclick="toggleAccordion(0)" class="w-full px-5 py-4 flex justify-between items-center bg-neutral-50/50 hover:bg-neutral-50 transition duration-200 text-left outline-none">
+                            <span class="font-serifTC text-sm font-medium text-neutral-700 flex items-center space-x-2">
+                                <i class="fa-solid fa-car text-morandiGold"></i>
+                                <span>自行開車 Driving & Parking</span>
+                            </span>
+                            <i class="fa-solid fa-chevron-down text-xs text-neutral-400 transition-transform duration-300 accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content hidden px-5 py-4 border-t border-neutral-100 bg-white">
+                            <p class="text-xs md:text-sm text-neutral-600 leading-relaxed font-light mb-4">
+                                附設免費戶外停車場供婚宴賓客使用。
+                            </p>
+                            <!-- Embedded Interactive Google Map & Image Grid -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Map -->
+                                <div class="w-full overflow-hidden rounded-xl border border-neutral-100 shadow-sm h-[250px] md:h-[350px]">
+                                    <iframe 
+                                        src="https://maps.google.com/maps?q=薇絲山庭&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                                        class="w-full h-full border-0" 
+                                        allowfullscreen="" 
+                                        loading="lazy" 
+                                        referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                </div>
+                                <!-- Direction Image -->
+                                <div class="w-full overflow-hidden rounded-xl border border-neutral-100 shadow-sm h-[250px] md:h-[350px]">
+                                    <img src="https://i.postimg.cc/SxkB3Szx/c4b0e203-0a12-4f79-8379-f80005a384a7.jpg" alt="交通指引圖" class="w-full h-full object-contain bg-white">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="py-20 bg-warmCream px-4">
+        <div class="max-w-3xl mx-auto reveal">
+            <!-- V-CARD 3: Interactive RSVP Form -->
+            <div class="bg-white rounded-3xl shadow-[0_15px_45px_rgba(0,0,0,0.03)] border border-neutral-100 p-8 md:p-16 space-y-8 relative">
+                
+                <div class="text-center">
+                    <span class="font-caveat-custom text-3xl text-morandiGold block">Will You Attend?</span>
+                    <h2 class="font-serifTC text-2xl md:text-3xl font-medium text-neutral-800 tracking-widest">出席回函</h2>
+                    <p class="text-xs text-neutral-400 mt-2 font-light font-serifTC">為了精確統計席次，請於 2026年7月31日前填妥此回函。真心感謝您的到來！</p>
+                    <div class="w-8 h-[1px] bg-morandiGold/60 mx-auto mt-4"></div>
+                </div>
+
+                <!-- HIDDEN IFRAME SUBMISSION METHOD -->
+                <iframe name="hidden_iframe" id="hidden_iframe" class="hidden"></iframe>
+                
+                <!-- RSVP FORM: Fully Configured and Cleanly structured -->
+                <form id="rsvpForm" action="https://docs.google.com/forms/d/e/1FAIpQLScUm2NJvs0NhSZOvs0SyTzkbhvjbOhNbjWyYb6HDMq_uwBjbg/formResponse" method="POST" target="hidden_iframe" onsubmit="handleFormSubmission(event)" class="space-y-6">
+                    
+                    <!-- 1. 姓名 Name (Bilingual Label, Blank Input) -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-semibold tracking-wider text-neutral-600">
+                            姓名 NAME <span class="text-red-400">*</span>
+                        </label>
+                        <input type="text" name="entry.228064123" id="input_name" required placeholder="請輸入您的姓名" 
+                               class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
+                    </div>
+
+                    <!-- 2. 聯絡電話 Phone (Bilingual Label, Blank Input) -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-semibold tracking-wider text-neutral-600">
+                            聯絡電話 PHONE <span class="text-red-400">*</span>
+                        </label>
+                        <input type="tel" name="entry.1741807041" id="input_phone" required placeholder="請輸入聯絡電話" 
+                               class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
+                    </div>
+
+                    <!-- 3. 電子郵件 Email (Bilingual Label, Blank Input) -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-semibold tracking-wider text-neutral-600">
+                            電子信箱 EMAIL <span class="text-red-400">*</span>
+                        </label>
+                        <input type="email" name="entry.694162648" id="input_email" required placeholder="example@email.com" 
+                               class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
+                    </div>
+
+                    <!-- 4. 與新人關係 Relationship (Bilingual Label) -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-semibold tracking-wider text-neutral-600">
+                            與新人的關係 RELATIONSHIP <span class="text-red-400">*</span>
+                        </label>
+                        <select name="entry.58267143" id="input_relation" required 
+                                class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm text-neutral-700">
+                            <option value="" disabled selected>請選擇關係</option>
+                            <option value="男方親友">男方親友</option>
+                            <option value="女方親友">女方親友</option>
+                            <option value="共同好友">共同好友</option>
+                        </select>
+                    </div>
+
+                    <!-- 5. 出席意願 Attendance (Bilingual Label) -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-semibold tracking-wider text-neutral-600">
+                            出席意願 ATTENDANCE <span class="text-red-400">*</span>
+                        </label>
+                        <select name="entry.265405017" id="input_attendance" required onchange="evaluateFormRules()"
+                                class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm text-neutral-700">
+                            <option value="" disabled selected>請選擇出席狀態</option>
+                            <option value="參加證婚儀式與晚宴">參加證婚儀式與晚宴</option>
+                            <option value="僅參加晚宴">僅參加晚宴</option>
+                            <option value="僅參加證婚儀式">僅參加證婚儀式</option>
+                            <option value="滿滿祝福，不克前往">滿滿祝福，不克前往</option>
+                        </select>
+                    </div>
+
+                    <!-- Dynamic block (Shown only if Attendance is Positive) -->
+                    <div id="conditional_group_attendance" class="space-y-6 border-l-2 border-morandiGold/20 pl-4 py-2 hidden transition-all duration-300">
+                        
+                        <!-- 6. 參加人數 Count of Attendees (Bilingual Label, Blank Input) -->
+                        <div class="space-y-2">
+                            <label class="block text-xs font-semibold tracking-wider text-neutral-600">
+                                參加人數 ATTENDEE COUNT
+                            </label>
+                            <input type="number" name="entry.1349136193" id="input_people_count" min="0" oninput="evaluateFormRules()" placeholder="請輸入人數" 
+                                   class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
+                            <p class="text-[11px] text-neutral-400 font-light">※ 若僅參加證婚儀式或不克前往，此欄將自動統計為0。</p>
+                        </div>
+
+                        <!-- Dynamic Sub-block (Shown only if Attendee Count > 0) -->
+                        <div id="conditional_group_dietary" class="space-y-6 hidden border-l-2 border-morandiGreen/30 pl-4 py-2 transition-all duration-300">
+                            
+                            <!-- 7. 飲食需求 Diet (Bilingual Label) -->
+                            <div class="space-y-2">
+                                <label class="block text-xs font-semibold tracking-wider text-neutral-600">
+                                    飲食需求 DIETARY REQUIREMENTS
+                                </label>
+                                <select name="entry.1399013184" id="input_diet" 
+                                        class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm text-neutral-700">
+                                    <option value="葷食" selected>葷食</option>
+                                    <option value="素食">素食</option>
+                                </select>
+                            </div>
+
+                            <!-- 8. 兒童椅需求 Children seat (Bilingual Label) -->
+                            <div class="space-y-2">
+                                <label class="block text-xs font-semibold tracking-wider text-neutral-600">
+                                    需要兒童座椅數量 CHILDREN SEATS
+                                </label>
+                                <input type="number" name="entry.553251877" id="input_kids_chairs" min="0" placeholder="0" 
+                                       class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-4">
+                        <button type="submit" 
+                                class="w-full py-4 rounded-xl bg-gradient-to-r from-morandiGold to-[#c08d5b] text-white font-serifTC text-md tracking-widest font-medium shadow-[0_6px_20px_rgba(212,163,115,0.25)] hover:shadow-[0_8px_25px_rgba(212,163,115,0.4)] hover:scale-[1.01] transition-all duration-300 flex items-center justify-center space-x-2">
+                            <span>送出回函 SUBMIT FORM</span>
+                        </button>
+                    </div>
+
+                </form>
+
+                <!-- Toast feedback panel -->
+                <div id="success_alert" class="hidden absolute inset-0 bg-white/95 backdrop-blur-md rounded-3xl flex flex-col items-center justify-center text-center p-8 space-y-6 z-20">
+                    <div class="w-16 h-16 rounded-full bg-morandiGreen/10 flex items-center justify-center text-morandiGreen text-3xl">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serifTC text-2xl font-semibold text-neutral-800">已成功送出回函！</h3>
+                        <p class="text-sm text-neutral-500 font-light leading-relaxed">
+                            衷心期待您的到來與祝福，<br>我們在 2026 年 10 月 03 日與您相見！
+                        </p>
+                    </div>
+                    <button onclick="resetRsvpView()" class="px-6 py-2 border border-morandiGold/30 text-morandiGold rounded-full text-xs hover:bg-morandiGold/5 transition duration-200">
+                        修改回函資訊
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-16 bg-neutral-900 text-neutral-400 text-center text-xs space-y-4">
+        <!-- Chinese title configured with Chenyu Luoyan Font -->
+        <p class="font-chenyu text-3xl text-white font-light tracking-widest">昱丞 <span class="text-morandiGold">&</span> 于靖</p>
+        <p class="font-caveat-custom tracking-[0.3em] text-2xl text-neutral-400 font-semibold">Johnny & Jessica</p>
+        <div class="w-6 h-[1px] bg-morandiGold/60 mx-auto"></div>
+        <p class="font-chenyu font-bold text-lg md:text-xl leading-relaxed">貫徹愛與真實的邪惡，可愛又迷人的反派角色</p>
+    </footer>
+
+    <!-- INTERACTIVE VIRTUAL PET (ANGEL SCHNAUZER CO-PRESENT - ENLARGED 1.5x) -->
+    <div id="screenPet" class="fixed z-[90] bottom-4 left-10 pointer-events-none transition-all duration-[2.5s] ease-in-out flex flex-col items-center">
+        <!-- Dialog speech bubble (Smooth Fade & Slide) -->
+        <div id="petBubble" class="opacity-0 translate-y-2 pointer-events-auto bg-white/95 backdrop-blur-md border border-morandiGold/30 text-sm text-neutral-700 py-3 px-5 rounded-2xl shadow-md max-w-[220px] text-center relative mb-4 transition-all duration-300">
+            汪汪！🐾
+            <!-- Triangle pointer for bubble -->
+            <div class="absolute bottom-[-5px] left-1/2 -translate-x-1/2 w-0.5 h-0.5 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-white"></div>
+        </div>
+
+        <!-- Pet Body & Settings Button Trigger Container -->
+        <div class="relative pointer-events-auto group cursor-pointer flex flex-col items-center" onclick="interactWithPet()">
+            <!-- Sleep Particles Container -->
+            <div id="sleepParticles" class="absolute -top-4 left-0"></div>
+
+            <!-- Enlarged Dog Head & White Schnauzer Body Container -->
+            <div class="relative w-36 h-40 md:w-40 md:h-44 flex flex-col items-center justify-end">
+                <!-- Dog Head (Locked to custom baby Schnauzer image) -->
+                <div id="petHeadContainer" class="absolute top-1 w-24 h-24 md:w-28 md:h-28 rounded-full border-2 border-white shadow-md overflow-hidden bg-cover bg-center z-10 bg-white">
+                    <img id="petImg" src="https://i.postimg.cc/zfDQrWfM/aaa.png" class="w-full h-full object-cover" alt="White Schnauzer Angel" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'0.9em\' font-size=\'80\'>🐶</text></svg>'">
+                </div>
+                <!-- Dog Body (White Schnauzer Handdrawn SVG) -->
+                <div id="petBody" class="w-28 h-22 md:w-32 md:h-26 transition-all duration-300 z-0">
+                    <svg viewBox="0 0 100 70" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="25" y="15" width="50" height="38" rx="19" fill="#f4efe9" />
+                        <rect x="28" y="45" width="10" height="20" rx="4" fill="#f4efe9" />
+                        <rect x="30" y="45" width="10" height="20" rx="4" fill="#ffffff" />
+                        <rect x="62" y="45" width="10" height="20" rx="4" fill="#f4efe9" />
+                        <rect x="60" y="45" width="10" height="20" rx="4" fill="#ffffff" />
+                        <path d="M 25 22 Q 12 10 16 5 Q 22 5 28 18" fill="#ffffff" stroke="#f4efe9" stroke-width="2" />
+                        <path d="M 50 15 Q 65 28 55 42 Q 42 28 50 15" fill="#ffffff" />
+                        <rect x="42" y="10" width="16" height="6" rx="3" fill="#d4a373" />
+                        <circle cx="50" cy="18" r="4" fill="#ffd700" />
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Shadow -->
+            <div class="w-24 h-2 bg-black/10 rounded-full mt-1 filter blur-[1px]"></div>
+        </div>
+    </div>
+
+    <!-- Background Music Element -->
+    <audio id="bgMusic" loop class="hidden">
+        <source id="musicSource" src="" type="audio/mp3">
+    </audio>
+
+    <script>
+        // ==========================================
+        // 🎵 音樂設定 / MUSIC SETTINGS
+        // ==========================================
+        const CUSTOM_MUSIC_URL = "https://files.catbox.moe/zjvp8j.mp3"; 
+
+        // 1. Mobile Menu Toggle Control
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        // 2. Premium Accordion Controller
+        function toggleAccordion(index) {
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach((item, i) => {
+                const content = item.querySelector('.accordion-content');
+                const icon = item.querySelector('.accordion-icon');
+                if (!content || !icon) return;
+                
+                if (i === index) {
+                    if (content.classList.contains('hidden')) {
+                        content.classList.remove('hidden');
+                        icon.classList.add('rotate-180');
+                    } else {
+                        content.classList.add('hidden');
+                        icon.classList.remove('rotate-180');
+                    }
+                } else {
+                    content.classList.add('hidden');
+                    icon.classList.remove('rotate-180');
+                }
+            });
+        }
+
+        // Initialize first accordion item open by default
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleAccordion(0);
+        });
+
+        // 3. Counting down elegantly to wedding date (Oct 3, 2026, 11:00 AM)
+        const weddingDate = new Date('Oct 3, 2026 11:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = weddingDate - now;
+
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+
+            if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+            if (difference <= 0) {
+                daysEl.innerText = "00";
+                hoursEl.innerText = "00";
+                minutesEl.innerText = "00";
+                secondsEl.innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            daysEl.innerText = String(days).padStart(2, '0');
+            hoursEl.innerText = String(hours).padStart(2, '0');
+            minutesEl.innerText = String(minutes).padStart(2, '0');
+            secondsEl.innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 4. Smart Form Conditional Logic Rules
+        function evaluateFormRules() {
+            const attendanceVal = document.getElementById('input_attendance')?.value;
+            const peopleCountInput = document.getElementById('input_people_count');
+            const condAttendanceGrp = document.getElementById('conditional_group_attendance');
+            const condDietaryGrp = document.getElementById('conditional_group_dietary');
+            
+            if (!peopleCountInput || !condAttendanceGrp || !condDietaryGrp) return;
+
+            // If "不克前往" (Unable to attend)
+            if (attendanceVal === '滿滿祝福，不克前往' || !attendanceVal) {
+                condAttendanceGrp.classList.add('hidden');
+                condDietaryGrp.classList.add('hidden');
+                peopleCountInput.required = false;
+            } else {
+                condAttendanceGrp.classList.remove('hidden');
+                peopleCountInput.required = true;
+                
+                const count = parseInt(peopleCountInput.value) || 0;
+                if (count > 0) {
+                    condDietaryGrp.classList.remove('hidden');
+                    const dietInput = document.getElementById('input_diet');
+                    if (dietInput) dietInput.required = true;
+                } else {
+                    condDietaryGrp.classList.add('hidden');
+                    const dietInput = document.getElementById('input_diet');
+                    if (dietInput) dietInput.required = false;
+                }
+            }
+        }
+
+        // 5. Submit validation & hidden Iframe target handler
+        let isSubmitting = false;
+        function handleFormSubmission(event) {
+            if (isSubmitting) {
+                event.preventDefault();
+                return;
+            }
+            
+            const attendanceVal = document.getElementById('input_attendance')?.value;
+            const peopleCountInput = document.getElementById('input_people_count');
+            const dietInput = document.getElementById('input_diet');
+            const kidsChairInput = document.getElementById('input_kids_chairs');
+
+            if (!peopleCountInput || !dietInput || !kidsChairInput) return;
+
+            // Business logic adjustments before sending raw post data to Google Form prefilled endpoint
+            if (attendanceVal === '滿滿祝福，不克前往') {
+                peopleCountInput.value = '0';
+                kidsChairInput.value = '0';
+                dietInput.value = '葷食'; // Default safe option
+            } else if (attendanceVal === '僅參加證婚儀式') {
+                if (!peopleCountInput.value || parseInt(peopleCountInput.value) <= 0) {
+                    peopleCountInput.value = '0';
+                    kidsChairInput.value = '0';
+                }
+            }
+
+            isSubmitting = true;
+            triggerPetSpeak("收到你的祝福囉！愛你汪汪！❤️🐾");
+            
+            setTimeout(() => {
+                const successAlert = document.getElementById('success_alert');
+                if (successAlert) {
+                    successAlert.classList.remove('hidden');
+                    successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                isSubmitting = false;
+            }, 1200);
+        }
+
+        function resetRsvpView() {
+            document.getElementById('rsvpForm')?.reset();
+            const successAlert = document.getElementById('success_alert');
+            if (successAlert) successAlert.classList.add('hidden');
+            evaluateFormRules();
+        }
+
+        // 7. Scroll Reveal Animation using Intersection Observer
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        revealElements.forEach(el => observer.observe(el));
+
+        // 8. Elegant Falling Canvas Leaf Animation Setup
+        const canvas = document.getElementById('leafCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            const leafCount = 15;
+            const leaves = [];
+
+            for (let i = 0; i < leafCount; i++) {
+                leaves.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 6 + 4,
+                    d: Math.random() * leafCount,
+                    speed: Math.random() * 1.2 + 0.5,
+                    angle: Math.random() * 360,
+                    spinSpeed: Math.random() * 1 - 0.5
+                });
+            }
+
+            function drawLeaves() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = 'rgba(212, 163, 115, 0.22)'; // Delicate semi-translucent gold petal color
+                ctx.beginPath();
+                
+                for (let i = 0; i < leafCount; i++) {
+                    const l = leaves[i];
+                    ctx.save();
+                    ctx.translate(l.x, l.y);
+                    ctx.rotate(l.angle * Math.PI / 180);
+                    
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, l.r * 1.5, l.r, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    ctx.restore();
+
+                    l.y += l.speed;
+                    l.x += Math.sin(l.d / 10) * 0.5;
+                    l.angle += l.spinSpeed;
+                    l.d += 0.05;
+
+                    if (l.y > canvas.height) {
+                        leaves[i] = {
+                            x: Math.random() * canvas.width,
+                            y: -20,
+                            r: l.r,
+                            d: l.d,
+                            speed: l.speed,
+                            angle: Math.random() * 360,
+                            spinSpeed: l.spinSpeed
+                        };
+                    }
+                }
+                requestAnimationFrame(drawLeaves);
+            }
+            drawLeaves();
+        }
+
+        // 9. Dual-Mode Sound Synthesizer & MP3 Player with Smart Autoplay on Interaction
+        let audioCtx = null;
+        let isPlaying = false;
+        let musicInterval = null;
+        const bgMusic = document.getElementById('bgMusic');
+
+        function initAudio() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        function playSoftTone(freq, startTime, duration) {
+            if (!audioCtx) return;
+            
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, startTime);
+            
+            gainNode.gain.setValueAtTime(0, startTime);
+            gainNode.gain.linearRampToValueAtTime(0.06, startTime + 0.1);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            osc.start(startTime);
+            osc.stop(startTime + duration);
+        }
+
+        const melody = [
+            261.63, 329.63, 392.00, 523.25, 392.00, 329.63, 
+            293.66, 349.23, 440.00, 587.33, 440.00, 349.23
+        ]; // Romantic melodic wind chime arpeggios
+        let noteIndex = 0;
+
+        function startMelodyLoop() {
+            // Priority: Play Custom Uploaded MP3 file if provided (Using the DOM audio element for high stability)
+            if (CUSTOM_MUSIC_URL && CUSTOM_MUSIC_URL.trim() !== "") {
+                if (bgMusic) {
+                    if (!bgMusic.src || bgMusic.src !== CUSTOM_MUSIC_URL) {
+                        bgMusic.src = CUSTOM_MUSIC_URL;
+                    }
+                    bgMusic.play().then(() => {
+                        console.log("Audio playing successfully.");
+                    }).catch(err => {
+                        console.log("Audio autoplay was restricted, waiting for user interaction.", err);
+                    });
+                }
+                return;
+            }
+
+            // Fallback: Romantic procedural synthesizer
+            if (!audioCtx) initAudio();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            musicInterval = setInterval(() => {
+                if (!audioCtx) return;
+                const now = audioCtx.currentTime;
+                const noteFreq = melody[noteIndex];
+                playSoftTone(noteFreq, now, 2.0);
+                noteIndex = (noteIndex + 1) % melody.length;
+            }, 1000);
+        }
+
+        function toggleMusic() {
+            const icon = document.getElementById('musicIcon');
+            const btn = document.getElementById('musicBtn');
+            if (!icon || !btn) return;
+
+            if (!isPlaying) {
+                startMelodyLoop();
+                icon.className = 'fa-solid fa-volume-high text-sm';
+                btn.classList.add('animate-pulse');
+                isPlaying = true;
+            } else {
+                if (CUSTOM_MUSIC_URL && CUSTOM_MUSIC_URL.trim() !== "") {
+                    if (bgMusic) bgMusic.pause();
+                } else {
+                    clearInterval(musicInterval);
+                    if (audioCtx) {
+                        audioCtx.suspend();
+                    }
+                }
+                icon.className = 'fa-solid fa-volume-xmark text-sm';
+                btn.classList.remove('animate-pulse');
+                isPlaying = false;
+            }
+        }
+
+        // Smart Interaction-Triggered Autoplay Loop
+        function enableSmartAutoplay() {
+            const runAutoplay = () => {
+                if (!isPlaying) {
+                    toggleMusic();
+                }
+                // Cleanup interaction triggers after first activation
+                removeTriggers();
+            };
+
+            const removeTriggers = () => {
+                document.removeEventListener('click', runAutoplay);
+                document.removeEventListener('touchstart', runAutoplay);
+                document.removeEventListener('pointerdown', runAutoplay);
+                document.removeEventListener('keydown', runAutoplay);
+            };
+
+            document.addEventListener('click', runAutoplay);
+            document.addEventListener('touchstart', runAutoplay);
+            document.addEventListener('pointerdown', runAutoplay);
+            document.addEventListener('keydown', runAutoplay);
+        }
+
+        // Listen for direct music button click
+        document.getElementById('musicBtn').addEventListener('click', toggleMusic);
+
+        // ==========================================
+        // 10. ANGEL SCHNAUZER PET ENGINE (白雪納瑞天使守護者)
+        // ==========================================
+        const screenPet = document.getElementById('screenPet');
+        const petBody = document.getElementById('petBody');
+        const petBubble = document.getElementById('petBubble');
+        const petImg = document.getElementById('petImg');
+        const sleepParticles = document.getElementById('sleepParticles');
+
+        let petState = 'idle'; // 'idle', 'walking', 'sleeping', 'peeking', 'watching'
+        let petX = 100; // Current bottom-left coordinate of the pet in pixels
+        let targetX = 100;
+        let petSpeechTimeout = null;
+        let wanderInterval = null;
+        let sleepEffectInterval = null;
+
+        const normalThoughts = [
+            "今天也是充滿愛的一天！💖",
+            "都給我出席，證婚也一定要來><",
+            "只要有愛，我們就永遠在一起！🥩",
+            "過來要穿好看點喔！👗",
+            "雖然我搬到天上了，但我一直都在喔汪！"
+        ];
+
+        // 📋 賓客點擊不同輸入框時，旺財會說出專門對應的貼心/俏皮語句
+        const fieldThoughts = {
+            'input_name': "名字要寫對喔，不然我會對不到人！🐾",
+            'input_phone': "電話要留對唷，這樣才能聯絡到你！📞",
+            'input_email': "寫對信箱才能把最美的照片跟通知寄給你！📧",
+            'input_relation': "你是男方的親友，還是女方的親友呢？期待認識你！🐶",
+            'input_attendance': "都給我出席，證婚也一定要來><",
+            'input_people_count': "要來幾個人呢？我想多準備一些大餐！🍖",
+            'input_diet': "要吃葷食還是素食呢？我都好想嚐嚐看！😋",
+            'input_kids_chairs': "小寶寶要坐兒童椅嗎？要安全坐好喔！👶"
+        };
+
+        // Show dialogue text
+        function triggerPetSpeak(text, duration = 4000) {
+            if (petSpeechTimeout) clearTimeout(petSpeechTimeout);
+            
+            petBubble.innerHTML = text + `<div class="absolute bottom-[-5px] left-1/2 -translate-x-1/2 w-0.5 h-0.5 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-white"></div>`;
+            petBubble.classList.remove('opacity-0', 'translate-y-2');
+            
+            petSpeechTimeout = setTimeout(() => {
+                petBubble.classList.add('opacity-0', 'translate-y-2');
+            }, duration);
+        }
+
+        // Click interaction
+        function interactWithPet() {
+            setPetState('barking');
+            const randomGreet = [
+                "希望大家都能出席哥哥姐姐的婚禮！🐾",
+                "看在我這麼可愛的份上，證婚也要來><",
+                "（狂搖尾巴中）摸摸我拜託！🐾",
+                "別忘了在 7/31 前填好出席回函喔！",
+                "新婚快樂！❤️",
+                "肚子好餓好想吃地瓜🍠",
+                "汪~汪~汪~汪~汪"
+            ];
+            triggerPetSpeak(randomGreet[Math.floor(Math.random() * randomGreet.length)]);
+            
+            // Add bounce physical animation
+            petBody.classList.add('pet-barking');
+            setTimeout(() => {
+                petBody.classList.remove('pet-barking');
+                setPetState('idle');
+            }, 800);
+        }
+
+        // Pet State setter
+        function setPetState(state) {
+            petState = state;
+            
+            // Clear animations classes
+            petBody.classList.remove('pet-walking', 'pet-sleeping');
+            clearInterval(sleepEffectInterval);
+            sleepParticles.innerHTML = '';
+
+            if (state === 'walking') {
+                petBody.classList.add('pet-walking');
+            } else if (state === 'sleeping') {
+                petBody.classList.add('pet-sleeping');
+                // Spawn Zzz particles
+                sleepEffectInterval = setInterval(() => {
+                    const z = document.createElement('div');
+                    z.innerText = 'Z';
+                    z.className = 'z-sleep';
+                    z.style.left = `${Math.random() * 20 + 20}px`;
+                    z.style.top = `${Math.random() * -10}px`;
+                    sleepParticles.appendChild(z);
+                    setTimeout(() => z.remove(), 1800);
+                }, 1500);
+            }
+        }
+
+        // Wandering Engine
+        function wanderAround() {
+            if (petState === 'watching' || petState === 'barking') return;
+
+            // 1. Choose a random task
+            const rand = Math.random();
+            if (rand < 0.45) {
+                // WALKING: Go to a new spot
+                const maxW = window.innerWidth - 180;
+                targetX = Math.max(40, Math.floor(Math.random() * maxW));
+                
+                // Set direction flip
+                if (targetX < petX) {
+                    petBody.style.transform = 'scaleX(-1)';
+                } else {
+                    petBody.style.transform = 'scaleX(1)';
+                }
+                
+                setPetState('walking');
+                petX = targetX;
+                screenPet.style.left = `${petX}px`;
+
+                // Return to idle once there (transition takes ~2.5s)
+                setTimeout(() => {
+                    if (petState === 'walking') setPetState('idle');
+                }, 2500);
+
+            } else if (rand < 0.7) {
+                // SLEEPING: Lay down and take a nap
+                setPetState('sleeping');
+                triggerPetSpeak("呼嚕呼嚕... Zzz... 💤", 3000);
+            } else {
+                // IDLE: Speak or just sniff
+                setPetState('idle');
+                if (Math.random() < 0.5) {
+                    triggerPetSpeak(normalThoughts[Math.floor(Math.random() * normalThoughts.length)]);
+                }
+            }
+        }
+
+        // React when user types/clicks on RSVP inputs (Custom order mapping implemented)
+        function initFormEventTracking() {
+            const formInputs = document.querySelectorAll('#rsvpForm input, #rsvpForm select');
+            
+            formInputs.forEach(el => {
+                el.addEventListener('focus', () => {
+                    // Pet snaps to attention
+                    setPetState('watching');
+                    
+                    // Walk over to the center-bottom of screen and peek up to "watch"
+                    petX = (window.innerWidth / 2) - 80;
+                    screenPet.style.left = `${petX}px`;
+                    screenPet.style.bottom = '15px';
+                    petBody.style.transform = 'scale(1.1) rotate(-3deg)';
+                    
+                    // Retrieve specific guided response from mapping
+                    const guidance = fieldThoughts[el.id] || "悄悄盯著你填寫... 👀";
+                    triggerPetSpeak(guidance);
+                });
+
+                el.addEventListener('blur', () => {
+                    // Go back to normal state
+                    petBody.style.transform = 'scale(1) rotate(0deg)';
+                    screenPet.style.bottom = '16px';
+                    setPetState('idle');
+                });
+            });
+        }
+
+        // Start pet AI
+        window.addEventListener('load', () => {
+            initFormEventTracking();
+            // Start wandering immediately
+            wanderAround();
+            wanderInterval = setInterval(wanderAround, 12000);
+            triggerPetSpeak("我是最愛你們的伯爵！🐾");
+            
+            // Enable smart automatic music loading on page slide/tap
+            enableSmartAutoplay();
+        });
+    </script>
+</body>
+</html>
