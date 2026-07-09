@@ -398,11 +398,6 @@
                         若能與我們穿著相近的色系，將會是我們最美好的合照留念！<br>我們推薦的色調為：
                     </p>
                     <div class="flex flex-wrap justify-center gap-3 pt-2">
-                        <!-- 白色 (White) -->
-                        <div class="flex items-center space-x-1.5 bg-white px-3.5 py-1.5 rounded-full text-xs text-neutral-800 border border-neutral-200 shadow-sm">
-                            <span class="w-3.5 h-3.5 rounded-full bg-white inline-block shadow-inner border border-neutral-300"></span>
-                            <span class="font-serifTC font-medium">白色</span>
-                        </div>
                         <!-- 米白色 (Off-white/Ivory) -->
                         <div class="flex items-center space-x-1.5 bg-[#fcfbf7] px-3.5 py-1.5 rounded-full text-xs text-[#6e6b5e] border border-[#f0ece1] shadow-sm">
                             <span class="w-3.5 h-3.5 rounded-full bg-[#f7f4eb] inline-block shadow-sm border border-[#e3dec9]"></span>
@@ -645,7 +640,7 @@
     </footer>
 
     <!-- INTERACTIVE VIRTUAL PET (ANGEL SCHNAUZER CO-PRESENT - ENLARGED 1.5x) -->
-    <div id="screenPet" class="fixed z-[90] bottom-4 left-10 pointer-events-none transition-all duration-[2.5s] ease-in-out flex flex-col items-center">
+    <div id="screenPet" class="fixed z-[90] bottom-4 left-4 md:left-10 pointer-events-none transition-all duration-[2.5s] ease-in-out flex flex-col items-center">
         <!-- Dialog speech bubble (Smooth Fade & Slide) -->
         <div id="petBubble" class="opacity-0 translate-y-2 pointer-events-auto bg-white/95 backdrop-blur-md border border-morandiGold/30 text-sm text-neutral-700 py-3 px-5 rounded-2xl shadow-md max-w-[220px] text-center relative mb-4 transition-all duration-300">
             汪汪！🐾
@@ -659,13 +654,13 @@
             <div id="sleepParticles" class="absolute -top-4 left-0"></div>
 
             <!-- Enlarged Dog Head & White Schnauzer Body Container -->
-            <div class="relative w-36 h-40 md:w-40 md:h-44 flex flex-col items-center justify-end">
+            <div class="relative w-24 h-28 md:w-40 md:h-44 flex flex-col items-center justify-end">
                 <!-- Dog Head (Locked to custom baby Schnauzer image) -->
-                <div id="petHeadContainer" class="absolute top-1 w-24 h-24 md:w-28 md:h-28 rounded-full border-2 border-white shadow-md overflow-hidden bg-cover bg-center z-10 bg-white">
+                <div id="petHeadContainer" class="absolute top-1 w-16 h-16 md:w-28 md:h-28 rounded-full border-2 border-white shadow-md overflow-hidden bg-cover bg-center z-10 bg-white">
                     <img id="petImg" src="https://i.postimg.cc/zfDQrWfM/aaa.png" class="w-full h-full object-cover" alt="White Schnauzer Angel" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'0.9em\' font-size=\'80\'>🐶</text></svg>'">
                 </div>
                 <!-- Dog Body (White Schnauzer Handdrawn SVG) -->
-                <div id="petBody" class="w-28 h-22 md:w-32 md:h-26 transition-all duration-300 z-0">
+                <div id="petBody" class="w-20 h-16 md:w-32 md:h-26 transition-all duration-300 z-0">
                     <svg viewBox="0 0 100 70" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                         <rect x="25" y="15" width="50" height="38" rx="19" fill="#f4efe9" />
                         <rect x="28" y="45" width="10" height="20" rx="4" fill="#f4efe9" />
@@ -681,7 +676,7 @@
             </div>
             
             <!-- Shadow -->
-            <div class="w-24 h-2 bg-black/10 rounded-full mt-1 filter blur-[1px]"></div>
+            <div class="w-16 h-2 md:w-24 bg-black/10 rounded-full mt-1 filter blur-[1px]"></div>
         </div>
     </div>
 
