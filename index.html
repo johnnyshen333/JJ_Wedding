@@ -152,25 +152,44 @@
             animation: zFloat 1.8s infinite linear;
         }
 
-        /* Hero text: extra-compact layout for phones rotated to landscape
-           (short viewport height), so the wording doesn't sit over faces */
-        @media (orientation: landscape) and (max-height: 500px) {
+        /* Hero vertical layout — base (mobile-first): anchor content to the bottom of the
+           screen so the title / names never land on top of the faces in the photo.
+           IMPORTANT: this is intentionally NOT gated by a width breakpoint (e.g. Tailwind's
+           md:), because a phone rotated to landscape is often WIDER than 768px and would
+           incorrectly fall back to a centered layout, pushing text up over the faces. */
+        #hero {
+            align-items: flex-end;
+            padding-bottom: 4rem;
+        }
+
+        /* True desktop / laptop (has a real mouse + a reasonably wide screen): centered
+           hero reads better here, and there's no short-viewport risk. */
+        @media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+            #hero {
+                align-items: center;
+                padding-bottom: 0;
+            }
+        }
+
+        /* Any touchscreen rotated to landscape (short viewport height): compact everything
+           and pin it to the very bottom, clear of the fixed nav bar up top. */
+        @media (orientation: landscape) and (max-height: 620px) {
             #hero {
                 align-items: flex-end !important;
-                padding-bottom: 0.75rem !important;
+                padding-bottom: 0.5rem !important;
             }
             #heroContent {
-                transform: scale(0.85);
-                transform-origin: bottom center;
+                transform: scale(0.78) !important;
+                transform-origin: bottom center !important;
             }
-            #heroSaveDate { font-size: 1.1rem !important; margin-bottom: 0.15rem !important; }
-            #heroJourney { font-size: 0.55rem !important; margin-bottom: 0.35rem !important; }
-            #heroTitle { font-size: 1.85rem !important; margin-bottom: 0.15rem !important; }
-            #heroAmp { font-size: 1.1rem !important; margin: 0 0.35rem !important; }
-            #heroNames { font-size: 0.85rem !important; margin-bottom: 0.4rem !important; }
-            #heroDivider { margin-top: 0.4rem !important; margin-bottom: 0.4rem !important; }
-            #heroSlogan { font-size: 0.75rem !important; margin-bottom: 0.5rem !important; }
-            #heroDate { font-size: 0.6rem !important; padding: 0.3rem 0.9rem !important; }
+            #heroSaveDate { font-size: 1rem !important; margin-bottom: 0.1rem !important; }
+            #heroJourney { font-size: 0.5rem !important; margin-bottom: 0.3rem !important; }
+            #heroTitle { font-size: 1.6rem !important; margin-bottom: 0.1rem !important; }
+            #heroAmp { font-size: 1rem !important; margin: 0 0.3rem !important; }
+            #heroNames { font-size: 0.75rem !important; margin-bottom: 0.3rem !important; }
+            #heroDivider { margin-top: 0.3rem !important; margin-bottom: 0.3rem !important; }
+            #heroSlogan { font-size: 0.65rem !important; margin-bottom: 0.4rem !important; }
+            #heroDate { font-size: 0.55rem !important; padding: 0.25rem 0.75rem !important; }
         }
     </style>
 </head>
@@ -212,7 +231,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative w-full h-screen flex items-end justify-center pb-16 sm:pb-20 md:items-center md:pb-0 overflow-hidden">
+    <section id="hero" class="relative w-full h-screen flex items-end justify-center overflow-hidden">
         <!-- Background Wedding Image (Locked to Selected URL) -->
         <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[4000ms] scale-105 hover:scale-100" 
              style="background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.3)), url('https://i.postimg.cc/QCCjCJ7P/20260319R7-0446-2.jpg');">
