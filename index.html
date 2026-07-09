@@ -468,13 +468,18 @@
                                class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
                     </div>
 
-                    <!-- 3. 電子郵件 Email (Bilingual Label, Blank Input) -->
+                    <!-- 3. 電子郵件 Email (Bilingual Label, Blank Input, with inline validation) -->
                     <div class="space-y-2">
                         <label class="block text-xs font-semibold tracking-wider text-neutral-600">
                             電子信箱 EMAIL <span class="text-red-400">*</span>
                         </label>
-                        <input type="email" name="entry.694162648" id="input_email" required placeholder="example@email.com" 
-                               class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
+                        <div class="relative">
+                            <input type="email" name="entry.694162648" id="input_email" required placeholder="example@email.com" 
+                                   oninput="validateEmailField()" onblur="validateEmailField(true)"
+                                   class="w-full px-4 py-3 pr-10 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
+                            <i id="email_status_icon" class="fa-solid absolute right-3 top-1/2 -translate-y-1/2 text-sm hidden"></i>
+                        </div>
+                        <p id="email_error" class="text-[11px] text-red-400 font-light hidden">請輸入正確的電子信箱格式，例如 name@example.com</p>
                     </div>
 
                     <!-- 4. 與新人關係 Relationship (Bilingual Label) -->
@@ -721,6 +726,55 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
+        // 3.5 Email Field Real-time Validation (防呆機制)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+        function validateEmailField(isBlur) {
+            const emailInput = document.getElementById('input_email');
+            const emailError = document.getElementById('email_error');
+            const emailIcon = document.getElementById('email_status_icon');
+            if (!emailInput || !emailError || !emailIcon) return true;
+
+            // 自動去除頭尾多餘空白（常見複製貼上的防呆）
+            if (isBlur) {
+                emailInput.value = emailInput.value.trim();
+            }
+
+            const value = emailInput.value.trim();
+
+            // 尚未輸入時，維持中性樣式，不顯示錯誤（避免一進頁面就紅字嚇到人）
+            if (value === '') {
+                emailInput.classList.remove('border-red-400', 'focus:ring-red-400', 'border-morandiGreen');
+                emailInput.classList.add('border-neutral-200');
+                emailError.classList.add('hidden');
+                emailIcon.classList.add('hidden');
+                return false;
+            }
+
+            const isValid = emailRegex.test(value);
+
+            if (isValid) {
+                emailInput.classList.remove('border-red-400', 'focus:ring-red-400');
+                emailInput.classList.add('border-morandiGreen');
+                emailError.classList.add('hidden');
+                emailIcon.className = 'fa-solid fa-circle-check absolute right-3 top-1/2 -translate-y-1/2 text-sm text-morandiGreen';
+                emailIcon.classList.remove('hidden');
+            } else {
+                emailInput.classList.remove('border-morandiGreen');
+                emailInput.classList.add('border-red-400');
+                emailIcon.className = 'fa-solid fa-circle-exclamation absolute right-3 top-1/2 -translate-y-1/2 text-sm text-red-400';
+                emailIcon.classList.remove('hidden');
+                // 只有在失去焦點（填完離開）時才跳出文字錯誤提示，輸入途中不打擾
+                if (isBlur) {
+                    emailError.classList.remove('hidden');
+                } else {
+                    emailError.classList.add('hidden');
+                }
+            }
+
+            return isValid;
+        }
+
         // 4. Smart Form Conditional Logic Rules
         function evaluateFormRules() {
             const attendanceVal = document.getElementById('input_attendance')?.value;
@@ -764,6 +818,19 @@
         function handleFormSubmission(event) {
             if (isSubmitting) {
                 event.preventDefault();
+                return;
+            }
+
+            // 防呆檢查：Email 格式必須正確才能送出
+            const emailValid = validateEmailField(true);
+            if (!emailValid) {
+                event.preventDefault();
+                const emailInput = document.getElementById('input_email');
+                if (emailInput) {
+                    emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    emailInput.focus();
+                }
+                triggerPetSpeak("信箱格式好像怪怪的，再檢查一下嘛！🐾", 3500);
                 return;
             }
             
