@@ -6,10 +6,10 @@
     <title>昱丞 & 于靖 婚禮邀請函 Wedding Invitation</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Cormorant Garamond, Noto Serif TC & Caveat (英文手寫體) -->
+    <!-- Google Fonts: Cormorant Garamond, Noto Serif TC, Caveat (英文手寫體) & Yuji Syuku (日文手寫體) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Noto+Serif+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Noto+Serif+TC:wght@300;400;500;700&family=Yuji+Syuku&display=swap" rel="stylesheet">
     <!-- Font Awesome for premium icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -151,46 +151,6 @@
             pointer-events: none;
             animation: zFloat 1.8s infinite linear;
         }
-
-        /* Hero vertical layout — base (mobile-first): anchor content to the bottom of the
-           screen so the title / names never land on top of the faces in the photo.
-           IMPORTANT: this is intentionally NOT gated by a width breakpoint (e.g. Tailwind's
-           md:), because a phone rotated to landscape is often WIDER than 768px and would
-           incorrectly fall back to a centered layout, pushing text up over the faces. */
-        #hero {
-            align-items: flex-end;
-            padding-bottom: 4rem;
-        }
-
-        /* True desktop / laptop (has a real mouse + a reasonably wide screen): centered
-           hero reads better here, and there's no short-viewport risk. */
-        @media (hover: hover) and (pointer: fine) and (min-width: 768px) {
-            #hero {
-                align-items: center;
-                padding-bottom: 0;
-            }
-        }
-
-        /* Any touchscreen rotated to landscape (short viewport height): compact everything
-           and pin it to the very bottom, clear of the fixed nav bar up top. */
-        @media (orientation: landscape) and (max-height: 620px) {
-            #hero {
-                align-items: flex-end !important;
-                padding-bottom: 0.5rem !important;
-            }
-            #heroContent {
-                transform: scale(0.78) !important;
-                transform-origin: bottom center !important;
-            }
-            #heroSaveDate { font-size: 1rem !important; margin-bottom: 0.1rem !important; }
-            #heroJourney { font-size: 0.5rem !important; margin-bottom: 0.3rem !important; }
-            #heroTitle { font-size: 1.6rem !important; margin-bottom: 0.1rem !important; }
-            #heroAmp { font-size: 1rem !important; margin: 0 0.3rem !important; }
-            #heroNames { font-size: 0.75rem !important; margin-bottom: 0.3rem !important; }
-            #heroDivider { margin-top: 0.3rem !important; margin-bottom: 0.3rem !important; }
-            #heroSlogan { font-size: 0.65rem !important; margin-bottom: 0.4rem !important; }
-            #heroDate { font-size: 0.55rem !important; padding: 0.25rem 0.75rem !important; }
-        }
     </style>
 </head>
 <body class="relative">
@@ -231,26 +191,26 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative w-full h-screen flex items-end justify-center overflow-hidden">
+    <section id="hero" class="relative w-full h-screen flex items-center justify-center overflow-hidden">
         <!-- Background Wedding Image (Locked to Selected URL) -->
         <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[4000ms] scale-105 hover:scale-100" 
              style="background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.3)), url('https://i.postimg.cc/QCCjCJ7P/20260319R7-0446-2.jpg');">
         </div>
         
-        <div id="heroContent" class="relative z-10 text-center text-white px-4 animate-fade-in-up">
-            <span id="heroSaveDate" class="font-caveat-custom text-3xl sm:text-4xl md:text-5xl text-morandiGold block mb-1 sm:mb-2 opacity-90 drop-shadow-sm">Save the Date</span>
-            <span id="heroJourney" class="font-caveat-custom text-cormorant tracking-[0.4em] uppercase text-xs md:text-sm block mb-2 sm:mb-4 opacity-80">Our Journey of Love</span>
+        <div class="relative z-10 text-center text-white px-4 animate-fade-in-up">
+            <span class="font-caveat-custom text-4xl md:text-5xl text-morandiGold block mb-2 opacity-90 drop-shadow-sm">Save the Date</span>
+            <span class="font-caveat-custom text-cormorant tracking-[0.4em] uppercase text-xs md:text-sm block mb-4 opacity-80">Our Journey of Love</span>
             <!-- Chinese title configured with Chenyu Luoyan Font -->
-            <h1 id="heroTitle" class="font-chenyu font-light text-4xl sm:text-5xl md:text-8xl tracking-wider mb-2 drop-shadow-md">
-                昱丞 <span id="heroAmp" class="text-2xl sm:text-3xl md:text-5xl inline-block mx-2 font-normal text-morandiGold">&</span> 于靖
+            <h1 class="font-chenyu font-light text-6xl md:text-8xl tracking-wider mb-2 drop-shadow-md">
+                昱丞 <span class="text-3xl md:text-5xl inline-block mx-2 font-normal text-morandiGold">&</span> 于靖
             </h1>
-            <span id="heroNames" class="font-caveat-custom tracking-[0.3em] text-xl sm:text-2xl md:text-3xl block mb-4 sm:mb-6 text-gray-200 font-medium">Johnny & Jessica</span>
-            <div id="heroDivider" class="w-16 h-[1px] bg-morandiGold/60 mx-auto my-4 sm:my-6"></div>
+            <span class="font-caveat-custom tracking-[0.3em] text-2xl md:text-3xl block mb-6 text-gray-200 font-medium">Johnny & Jessica</span>
+            <div class="w-16 h-[1px] bg-morandiGold/60 mx-auto my-6"></div>
             <!-- Slogan configured with Chenyu Luoyan Font -->
-            <p id="heroSlogan" class="font-chenyu text-lg sm:text-xl md:text-3xl tracking-[0.2em] mb-6 sm:mb-8 text-neutral-100 drop-shadow-sm">
+            <p class="font-chenyu text-2xl md:text-3xl tracking-[0.2em] mb-8 text-neutral-100 drop-shadow-sm">
                 有你在，冒險才有了意義
             </p>
-            <p id="heroDate" class="font-caveat-custom text-cormorant text-sm sm:text-md md:text-lg tracking-[0.2em] uppercase font-light bg-black/30 backdrop-blur-sm inline-block px-6 sm:px-8 py-2 sm:py-2.5 rounded-full border border-white/25">
+            <p class="font-caveat-custom text-cormorant text-md md:text-lg tracking-[0.2em] uppercase font-light bg-black/30 backdrop-blur-sm inline-block px-8 py-2.5 rounded-full border border-white/25">
                 2026.10.03
             </p>
         </div>
@@ -338,7 +298,7 @@
                 </p>
                 <!-- 第三句（與下一句保持基本間距 mb-2） -->
                 <p class="font-caveat-custom text-sm md:text-xl tracking-[0.2em] leading-relaxed text-neutral-600 font-bold mb-8">
-                    Whatever you say, 君を思う 気持ち
+                    Whatever you say, <span style="font-family: 'Yuji Syuku', serif;">君を思う 気持ち</span>
                 </p>
                 <!-- 第四句 -->
                 <p class="font-caveat-custom text-sm md:text-xl tracking-[0.2em] leading-relaxed text-neutral-600 font-bold">
@@ -368,7 +328,7 @@
                             <h3 class="font-serifTC text-lg font-medium text-neutral-800">證婚儀式</h3>
                         </div>
                         <ul class="space-y-2 text-sm text-neutral-600 font-light">
-                            <li><span class="font-medium text-neutral-700 font-serifTC">時間：</span><span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded font-serifTC">16:15 入席</span> | <span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded font-serifTC">16:30 儀式開始</span></li>
+                            <li><span class="font-medium text-neutral-700 font-serifTC">時間：</span><span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded font-serifTC">16:00 入席</span> | <span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded font-serifTC">16:30 儀式開始</span></li>
                             <li><span class="font-medium text-neutral-700 font-serifTC">地點：</span><span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded font-serifTC">薇絲山庭 二館戶外證婚區</span></li>
                             <li><span class="font-medium text-neutral-700">地址：</span><span class="whitespace-nowrap inline-block bg-neutral-100 px-1 rounded">新竹縣湖口鄉長安路361巷</span></li>
                         </ul>
@@ -398,6 +358,11 @@
                         若能與我們穿著相近的色系，將會是我們最美好的合照留念！<br>我們推薦的色調為：
                     </p>
                     <div class="flex flex-wrap justify-center gap-3 pt-2">
+                        <!-- 白色 (White) -->
+                        <div class="flex items-center space-x-1.5 bg-white px-3.5 py-1.5 rounded-full text-xs text-neutral-800 border border-neutral-200 shadow-sm">
+                            <span class="w-3.5 h-3.5 rounded-full bg-white inline-block shadow-inner border border-neutral-300"></span>
+                            <span class="font-serifTC font-medium">白色</span>
+                        </div>
                         <!-- 米白色 (Off-white/Ivory) -->
                         <div class="flex items-center space-x-1.5 bg-[#fcfbf7] px-3.5 py-1.5 rounded-full text-xs text-[#6e6b5e] border border-[#f0ece1] shadow-sm">
                             <span class="w-3.5 h-3.5 rounded-full bg-[#f7f4eb] inline-block shadow-sm border border-[#e3dec9]"></span>
@@ -499,22 +464,17 @@
                         <label class="block text-xs font-semibold tracking-wider text-neutral-600">
                             聯絡電話 PHONE <span class="text-red-400">*</span>
                         </label>
-                        <input type="tel" name="entry.972973653" id="input_phone" required placeholder="請輸入聯絡電話" 
+                        <input type="tel" name="entry.1741807041" id="input_phone" required placeholder="請輸入聯絡電話" 
                                class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
                     </div>
 
-                    <!-- 3. 電子郵件 Email (Bilingual Label, Blank Input, with inline validation) -->
+                    <!-- 3. 電子郵件 Email (Bilingual Label, Blank Input) -->
                     <div class="space-y-2">
                         <label class="block text-xs font-semibold tracking-wider text-neutral-600">
                             電子信箱 EMAIL <span class="text-red-400">*</span>
                         </label>
-                        <div class="relative">
-                            <input type="email" name="entry.694162648" id="input_email" required placeholder="example@email.com" 
-                                   oninput="validateEmailField()" onblur="validateEmailField(true)"
-                                   class="w-full px-4 py-3 pr-10 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
-                            <i id="email_status_icon" class="fa-solid absolute right-3 top-1/2 -translate-y-1/2 text-sm hidden"></i>
-                        </div>
-                        <p id="email_error" class="text-[11px] text-red-400 font-light hidden">請輸入正確的電子信箱格式，例如 name@example.com</p>
+                        <input type="email" name="entry.694162648" id="input_email" required placeholder="example@email.com" 
+                               class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
                     </div>
 
                     <!-- 4. 與新人關係 Relationship (Bilingual Label) -->
@@ -552,53 +512,38 @@
                         <!-- 6. 參加人數 Count of Attendees (Bilingual Label, Blank Input) -->
                         <div class="space-y-2">
                             <label class="block text-xs font-semibold tracking-wider text-neutral-600">
-                                參加人數 ATTENDEE COUNT <span class="text-red-400">*</span>
+                                參加人數 ATTENDEE COUNT
                             </label>
                             <input type="number" name="entry.1349136193" id="input_people_count" min="0" oninput="evaluateFormRules()" placeholder="請輸入人數" 
                                    class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
                             <p class="text-[11px] text-neutral-400 font-light">※ 若僅參加證婚儀式或不克前往，此欄將自動統計為0。</p>
                         </div>
 
-                        <!-- Dynamic Sub-block (Shown only if attending the banquet 晚宴) -->
+                        <!-- Dynamic Sub-block (Shown only if Attendee Count > 0) -->
                         <div id="conditional_group_dietary" class="space-y-6 hidden border-l-2 border-morandiGreen/30 pl-4 py-2 transition-all duration-300">
                             
-                            <!-- 7. 素食需求人數 Vegetarian Meal Count (Bilingual Label, Blank Input) -->
+                            <!-- 7. 飲食需求 Diet (Bilingual Label) -->
                             <div class="space-y-2">
                                 <label class="block text-xs font-semibold tracking-wider text-neutral-600">
-                                    素食需求人數 VEGETARIAN MEALS <span class="text-red-400">*</span>
+                                    飲食需求 DIETARY REQUIREMENTS
                                 </label>
-                                <input type="number" name="entry.1399013184" id="input_diet" min="0" placeholder="請輸入素食人數，無則填 0" 
-                                       class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
+                                <select name="entry.1399013184" id="input_diet" 
+                                        class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm text-neutral-700">
+                                    <option value="葷食" selected>葷食</option>
+                                    <option value="素食">素食</option>
+                                </select>
                             </div>
 
                             <!-- 8. 兒童椅需求 Children seat (Bilingual Label) -->
                             <div class="space-y-2">
                                 <label class="block text-xs font-semibold tracking-wider text-neutral-600">
-                                    需要兒童座椅數量 CHILDREN SEATS <span class="text-red-400">*</span>
+                                    需要兒童座椅數量 CHILDREN SEATS
                                 </label>
                                 <input type="number" name="entry.553251877" id="input_kids_chairs" min="0" placeholder="0" 
                                        class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
                             </div>
 
-                            <!-- 8.5 其他需求 Other Requirements (詳答題) -->
-                            <div class="space-y-2">
-                                <label class="block text-xs font-semibold tracking-wider text-neutral-600">
-                                    其他需求 OTHER REQUIREMENTS
-                                </label>
-                                <textarea name="entry.580275235" id="input_other_reqs" rows="3" placeholder="例如：特殊飲食過敏、無障礙空間需求，或有嬰兒車需放置等..." 
-                                          class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400 resize-none"></textarea>
-                            </div>
-
                         </div>
-                    </div>
-
-                    <!-- 9. 想對新人說的話 Message to the Couple (Bilingual Label, Optional) -->
-                    <div class="space-y-2">
-                        <label class="block text-xs font-semibold tracking-wider text-neutral-600">
-                            想對新人說的話 MESSAGE TO THE COUPLE
-                        </label>
-                        <textarea name="entry.1741807041" id="input_message" rows="4" placeholder="留下您的祝福 or 想說的話..." 
-                                  class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400 resize-none"></textarea>
                     </div>
 
                     <!-- Submit Button -->
@@ -640,7 +585,7 @@
     </footer>
 
     <!-- INTERACTIVE VIRTUAL PET (ANGEL SCHNAUZER CO-PRESENT - ENLARGED 1.5x) -->
-    <div id="screenPet" class="fixed z-[90] bottom-4 left-4 md:left-10 pointer-events-none transition-all duration-[2.5s] ease-in-out flex flex-col items-center">
+    <div id="screenPet" class="fixed z-[90] bottom-4 left-10 pointer-events-none transition-all duration-[2.5s] ease-in-out flex flex-col items-center">
         <!-- Dialog speech bubble (Smooth Fade & Slide) -->
         <div id="petBubble" class="opacity-0 translate-y-2 pointer-events-auto bg-white/95 backdrop-blur-md border border-morandiGold/30 text-sm text-neutral-700 py-3 px-5 rounded-2xl shadow-md max-w-[220px] text-center relative mb-4 transition-all duration-300">
             汪汪！🐾
@@ -654,13 +599,13 @@
             <div id="sleepParticles" class="absolute -top-4 left-0"></div>
 
             <!-- Enlarged Dog Head & White Schnauzer Body Container -->
-            <div class="relative w-24 h-28 md:w-40 md:h-44 flex flex-col items-center justify-end">
+            <div class="relative w-36 h-40 md:w-40 md:h-44 flex flex-col items-center justify-end">
                 <!-- Dog Head (Locked to custom baby Schnauzer image) -->
-                <div id="petHeadContainer" class="absolute top-1 w-16 h-16 md:w-28 md:h-28 rounded-full border-2 border-white shadow-md overflow-hidden bg-cover bg-center z-10 bg-white">
+                <div id="petHeadContainer" class="absolute top-1 w-24 h-24 md:w-28 md:h-28 rounded-full border-2 border-white shadow-md overflow-hidden bg-cover bg-center z-10 bg-white">
                     <img id="petImg" src="https://i.postimg.cc/zfDQrWfM/aaa.png" class="w-full h-full object-cover" alt="White Schnauzer Angel" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'0.9em\' font-size=\'80\'>🐶</text></svg>'">
                 </div>
                 <!-- Dog Body (White Schnauzer Handdrawn SVG) -->
-                <div id="petBody" class="w-20 h-16 md:w-32 md:h-26 transition-all duration-300 z-0">
+                <div id="petBody" class="w-28 h-22 md:w-32 md:h-26 transition-all duration-300 z-0">
                     <svg viewBox="0 0 100 70" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                         <rect x="25" y="15" width="50" height="38" rx="19" fill="#f4efe9" />
                         <rect x="28" y="45" width="10" height="20" rx="4" fill="#f4efe9" />
@@ -676,7 +621,7 @@
             </div>
             
             <!-- Shadow -->
-            <div class="w-16 h-2 md:w-24 bg-black/10 rounded-full mt-1 filter blur-[1px]"></div>
+            <div class="w-24 h-2 bg-black/10 rounded-full mt-1 filter blur-[1px]"></div>
         </div>
     </div>
 
@@ -761,89 +706,33 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // 3.5 Email Field Real-time Validation (防呆機制)
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-        function validateEmailField(isBlur) {
-            const emailInput = document.getElementById('input_email');
-            const emailError = document.getElementById('email_error');
-            const emailIcon = document.getElementById('email_status_icon');
-            if (!emailInput || !emailError || !emailIcon) return true;
-
-            // 自動去除頭尾多餘空白（常見複製貼上的防呆）
-            if (isBlur) {
-                emailInput.value = emailInput.value.trim();
-            }
-
-            const value = emailInput.value.trim();
-
-            // 尚未輸入時，維持中性樣式，不顯示錯誤（避免一進頁面就紅字嚇到人）
-            if (value === '') {
-                emailInput.classList.remove('border-red-400', 'focus:ring-red-400', 'border-morandiGreen');
-                emailInput.classList.add('border-neutral-200');
-                emailError.classList.add('hidden');
-                emailIcon.classList.add('hidden');
-                return false;
-            }
-
-            const isValid = emailRegex.test(value);
-
-            if (isValid) {
-                emailInput.classList.remove('border-red-400', 'focus:ring-red-400');
-                emailInput.classList.add('border-morandiGreen');
-                emailError.classList.add('hidden');
-                emailIcon.className = 'fa-solid fa-circle-check absolute right-3 top-1/2 -translate-y-1/2 text-sm text-morandiGreen';
-                emailIcon.classList.remove('hidden');
-            } else {
-                emailInput.classList.remove('border-morandiGreen');
-                emailInput.classList.add('border-red-400');
-                emailIcon.className = 'fa-solid fa-circle-exclamation absolute right-3 top-1/2 -translate-y-1/2 text-sm text-red-400';
-                emailIcon.classList.remove('hidden');
-                // 只有在失去焦點（填完離開）時才跳出文字錯誤提示，輸入途中不打擾
-                if (isBlur) {
-                    emailError.classList.remove('hidden');
-                } else {
-                    emailError.classList.add('hidden');
-                }
-            }
-
-            return isValid;
-        }
-
         // 4. Smart Form Conditional Logic Rules
         function evaluateFormRules() {
             const attendanceVal = document.getElementById('input_attendance')?.value;
             const peopleCountInput = document.getElementById('input_people_count');
             const condAttendanceGrp = document.getElementById('conditional_group_attendance');
             const condDietaryGrp = document.getElementById('conditional_group_dietary');
-            const dietInput = document.getElementById('input_diet');
-            const kidsChairInput = document.getElementById('input_kids_chairs');
+            
+            if (!peopleCountInput || !condAttendanceGrp || !condDietaryGrp) return;
 
-            if (!peopleCountInput || !condAttendanceGrp || !condDietaryGrp || !dietInput || !kidsChairInput) return;
-
-            const isBanquet = (attendanceVal === '參加證婚儀式與晚宴' || attendanceVal === '僅參加晚宴');
-            const isAttending = attendanceVal && attendanceVal !== '滿滿祝福，不克前往';
-
-            if (!isAttending) {
-                // Not attending at all
+            // If "不克前往" (Unable to attend)
+            if (attendanceVal === '滿滿祝福，不克前往' || !attendanceVal) {
                 condAttendanceGrp.classList.add('hidden');
                 condDietaryGrp.classList.add('hidden');
                 peopleCountInput.required = false;
-                dietInput.required = false;
-                kidsChairInput.required = false;
             } else {
                 condAttendanceGrp.classList.remove('hidden');
                 peopleCountInput.required = true;
-
-                if (isBanquet) {
-                    // Only banquet attendees need to confirm dietary requirements
+                
+                const count = parseInt(peopleCountInput.value) || 0;
+                if (count > 0) {
                     condDietaryGrp.classList.remove('hidden');
-                    dietInput.required = true;
-                    kidsChairInput.required = true;
+                    const dietInput = document.getElementById('input_diet');
+                    if (dietInput) dietInput.required = true;
                 } else {
                     condDietaryGrp.classList.add('hidden');
-                    dietInput.required = false;
-                    kidsChairInput.required = false;
+                    const dietInput = document.getElementById('input_diet');
+                    if (dietInput) dietInput.required = false;
                 }
             }
         }
@@ -855,19 +744,6 @@
                 event.preventDefault();
                 return;
             }
-
-            // 防呆檢查：Email 格式必須正確才能送出
-            const emailValid = validateEmailField(true);
-            if (!emailValid) {
-                event.preventDefault();
-                const emailInput = document.getElementById('input_email');
-                if (emailInput) {
-                    emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    emailInput.focus();
-                }
-                triggerPetSpeak("信箱格式好像怪怪的，再檢查一下嘛！🐾", 3500);
-                return;
-            }
             
             const attendanceVal = document.getElementById('input_attendance')?.value;
             const peopleCountInput = document.getElementById('input_people_count');
@@ -876,17 +752,16 @@
 
             if (!peopleCountInput || !dietInput || !kidsChairInput) return;
 
-            const isBanquet = (attendanceVal === '參加證婚儀式與晚宴' || attendanceVal === '僅參加晚宴');
-
             // Business logic adjustments before sending raw post data to Google Form prefilled endpoint
             if (attendanceVal === '滿滿祝福，不克前往') {
                 peopleCountInput.value = '0';
                 kidsChairInput.value = '0';
-                dietInput.value = '0';
-            } else if (!isBanquet) {
-                // 僅參加證婚儀式：不需要飲食/兒童椅資訊
-                dietInput.value = '0';
-                kidsChairInput.value = kidsChairInput.value || '0';
+                dietInput.value = '葷食'; // Default safe option
+            } else if (attendanceVal === '僅參加證婚儀式') {
+                if (!peopleCountInput.value || parseInt(peopleCountInput.value) <= 0) {
+                    peopleCountInput.value = '0';
+                    kidsChairInput.value = '0';
+                }
             }
 
             isSubmitting = true;
@@ -1139,10 +1014,8 @@
             'input_relation': "你是男方的親友，還是女方的親友呢？期待認識你！🐶",
             'input_attendance': "都給我出席，證婚也一定要來><",
             'input_people_count': "要來幾個人呢？我想多準備一些大餐！🍖",
-            'input_diet': "有幾位需要素食呢？我幫你跟廚房說一聲！😋",
-            'input_kids_chairs': "小寶寶要坐兒童椅嗎？要安全坐好喔！👶",
-            'input_other_reqs': "有任何特別需要注意的地方都可以寫在這裡喔！汪！🐾",
-            'input_message': "想跟哥哥姐姐說什麼呢？我會幫你送到喔！💌"
+            'input_diet': "要吃葷食還是素食呢？我都好想嚐嚐看！😋",
+            'input_kids_chairs': "小寶寶要坐兒童椅嗎？要安全坐好喔！👶"
         };
 
         // Show dialogue text
@@ -1247,7 +1120,7 @@
 
         // React when user types/clicks on RSVP inputs (Custom order mapping implemented)
         function initFormEventTracking() {
-            const formInputs = document.querySelectorAll('#rsvpForm input, #rsvpForm select, #rsvpForm textarea');
+            const formInputs = document.querySelectorAll('#rsvpForm input, #rsvpForm select');
             
             formInputs.forEach(el => {
                 el.addEventListener('focus', () => {
