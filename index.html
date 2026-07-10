@@ -1296,24 +1296,42 @@
             const formInputs = document.querySelectorAll('#rsvpForm input, #rsvpForm select, #rsvpForm textarea');
             const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
             let shrinkTimeout = null;
+            let repositionTimeout = null;
         
             formInputs.forEach(el => {
                 el.addEventListener('focus', () => {
                     const guidance = fieldThoughts[el.id] || "悄悄盯著你填寫... 👀";
                     if (shrinkTimeout) clearTimeout(shrinkTimeout);
+                    if (repositionTimeout) clearTimeout(repositionTimeout);
         
                     if (isMobile()) {
-                        // 第一階段：先正常大小、正常顯示，讓使用者看清楚狗狗說的話
                         setPetState('watching');
+                        screenPet.style.transition = 'top 0.35s ease, left 0.35s ease, opacity 0.35s ease, transform 0.35s ease';
+                        screenPet.style.bottom = 'auto';
                         screenPet.style.opacity = '1';
-                        screenPet.style.transform = 'scale(1)';
+                        screenPet.style.transform = 'scale(0.55)';
+        
+                        // 延遲一點點，等手機鍵盤彈出、畫面捲動穩定後，再抓輸入框實際位置
+                        repositionTimeout = setTimeout(() => {
+                            const rect = el.getBoundingClientRect();
+                            const petWidth = 90; // 縮小後大約的寬度
+                            let left = rect.left + rect.width / 2 - petWidth / 2;
+                            left = Math.max(8, Math.min(left, window.innerWidth - petWidth - 8));
+        
+                            let top = rect.top - 92; // 貼在輸入框正上方
+                            if (top < 56) top = rect.bottom + 10; // 如果上面空間不夠（欄位太靠近頂部），改貼在下方
+        
+                            screenPet.style.left = `${left}px`;
+                            screenPet.style.top = `${top}px`;
+                        }, 280);
+        
                         triggerPetSpeak(guidance, 2600);
         
-                        // 第二階段：停留一下下之後，才慢慢淡出、縮小、讓開
+                        // 先讓使用者看清楚對話 1.4 秒，再慢慢淡出縮小、不擋輸入
                         shrinkTimeout = setTimeout(() => {
-                            screenPet.style.opacity = '0.35';
-                            screenPet.style.transform = 'scale(0.6)';
-                        }, 1400);
+                            screenPet.style.opacity = '0.3';
+                            screenPet.style.transform = 'scale(0.4)';
+                        }, 1500);
         
                         return;
                     }
@@ -1329,10 +1347,13 @@
         
                 el.addEventListener('blur', () => {
                     if (shrinkTimeout) clearTimeout(shrinkTimeout);
+                    if (repositionTimeout) clearTimeout(repositionTimeout);
+        
+                    screenPet.style.top = 'auto';
+                    screenPet.style.bottom = '16px';
                     screenPet.style.opacity = '1';
                     screenPet.style.transform = 'scale(1)';
                     petBody.style.transform = 'scale(1) rotate(0deg)';
-                    screenPet.style.bottom = '16px';
                     setPetState('idle');
                 });
             });
