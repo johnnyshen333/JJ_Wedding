@@ -660,24 +660,48 @@
             <!-- Enlarged Dog Head & White Schnauzer Body Container -->
             <div class="relative w-24 h-28 md:w-40 md:h-44 flex flex-col items-center justify-end">
                 <!-- Dog Head (Locked to custom baby Schnauzer image) -->
-                <div id="petHeadContainer" class="absolute top-1 w-16 h-16 md:w-28 md:h-28 rounded-full border-2 border-white shadow-md overflow-hidden bg-cover bg-center z-10 bg-white">
-                    <img id="petImg" src="https://i.postimg.cc/zfDQrWfM/aaa.png" class="w-full h-full object-cover" alt="White Schnauzer Angel" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'0.9em\' font-size=\'80\'>🐶</text></svg>'">
+                <div id="petHeadContainer" class="absolute top-1 w-16 h-16 md:w-28 md:h-28 rounded-full overflow-hidden shadow-md z-10">
+                    <img id="petImg" src="https://i.postimg.cc/zfDQrWfM/aaa.png" class="w-full h-full object-cover" alt="White Schnauzer Angel" onerror="...">
                 </div>
                 <!-- Dog Body (White Schnauzer Handdrawn SVG) -->
-                <div id="petBody" class="w-20 h-16 md:w-32 md:h-26 transition-all duration-300 z-0">
-                    <svg viewBox="0 0 100 70" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="25" y="15" width="50" height="38" rx="19" fill="#f4efe9" />
-                        <rect x="28" y="45" width="10" height="20" rx="4" fill="#f4efe9" />
-                        <rect x="30" y="45" width="10" height="20" rx="4" fill="#ffffff" />
-                        <rect x="62" y="45" width="10" height="20" rx="4" fill="#f4efe9" />
-                        <rect x="60" y="45" width="10" height="20" rx="4" fill="#ffffff" />
-                        <path d="M 25 22 Q 12 10 16 5 Q 22 5 28 18" fill="#ffffff" stroke="#f4efe9" stroke-width="2" />
-                        <path d="M 50 15 Q 65 28 55 42 Q 42 28 50 15" fill="#ffffff" />
-                        <rect x="42" y="10" width="16" height="6" rx="3" fill="#d4a373" />
-                        <circle cx="50" cy="18" r="4" fill="#ffd700" />
+                <div id="petBody" class="w-24 h-28 md:w-36 md:h-40 transition-all duration-300 z-0">
+                    <svg viewBox="0 0 100 110" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                        <!-- 後腳（較暗一點營造立體感） -->
+                        <rect x="24" y="80" width="12" height="26" rx="6" fill="#ece6dc"/>
+                        <rect x="64" y="80" width="12" height="26" rx="6" fill="#ece6dc"/>
+                
+                        <!-- 蓬鬆尾巴 -->
+                        <circle cx="83" cy="53" r="11" fill="#ffffff"/>
+                        <circle cx="89" cy="41" r="9" fill="#ffffff"/>
+                        <circle cx="91" cy="29" r="7" fill="#ffffff"/>
+                
+                        <!-- 前腳 -->
+                        <rect x="20" y="82" width="12" height="28" rx="6" fill="#ffffff" stroke="#ece6dc" stroke-width="1"/>
+                        <rect x="68" y="82" width="12" height="28" rx="6" fill="#ffffff" stroke="#ece6dc" stroke-width="1"/>
+                
+                        <!-- 毛茸茸腳掌 -->
+                        <ellipse cx="26" cy="108" rx="8" ry="5" fill="#ffffff"/>
+                        <ellipse cx="74" cy="108" rx="8" ry="5" fill="#ffffff"/>
+                
+                        <!-- 毛球堆疊出的蓬鬆身體 -->
+                        <g fill="#ffffff">
+                            <circle cx="50" cy="56" r="30"/>
+                            <circle cx="25" cy="59" r="16"/>
+                            <circle cx="75" cy="59" r="16"/>
+                            <circle cx="34" cy="35" r="15"/>
+                            <circle cx="66" cy="35" r="15"/>
+                            <circle cx="50" cy="27" r="17"/>
+                        </g>
+                
+                        <!-- 淡淡陰影，增加立體毛感 -->
+                        <ellipse cx="50" cy="72" rx="26" ry="10" fill="#f4efe9" opacity="0.5"/>
+                
+                        <!-- 金色蝴蝶結項圈 -->
+                        <path d="M42 41 L50 47 L42 53 Z" fill="#d4a373"/>
+                        <path d="M58 41 L50 47 L58 53 Z" fill="#d4a373"/>
+                        <circle cx="50" cy="47" r="3" fill="#c08d5b"/>
                     </svg>
                 </div>
-            </div>
             
             <!-- Shadow -->
             <div class="w-16 h-2 md:w-24 bg-black/10 rounded-full mt-1 filter blur-[1px]"></div>
@@ -1296,39 +1320,74 @@
             const formInputs = document.querySelectorAll('#rsvpForm input, #rsvpForm select, #rsvpForm textarea');
             const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
             let shrinkTimeout = null;
-            let repositionTimeout = null;
+            let blurTimeout = null;
+            let settleRAF = null;
+            let activeEl = null;
+        
+            function cancelSettle() {
+                if (settleRAF) cancelAnimationFrame(settleRAF);
+                settleRAF = null;
+            }
+        
+            function positionPetAbove(el) {
+                cancelSettle();
+                let lastRect = null;
+                let stableCount = 0;
+        
+                function check() {
+                    if (activeEl !== el) return; // 使用者已經切到別的欄位了，放棄這次定位
+        
+                    const rect = el.getBoundingClientRect();
+                    const changed = !lastRect ||
+                        Math.abs(rect.top - lastRect.top) > 1 ||
+                        Math.abs(rect.left - lastRect.left) > 1;
+        
+                    if (changed) {
+                        stableCount = 0;
+                        lastRect = rect;
+                    } else {
+                        stableCount++;
+                    }
+        
+                    // 位置連續兩個畫面更新都沒再變化，才視為「捲動/鍵盤已經穩定」
+                    if (stableCount >= 2) {
+                        const petWidth = 90;
+                        let left = rect.left + rect.width / 2 - petWidth / 2;
+                        left = Math.max(8, Math.min(left, window.innerWidth - petWidth - 8));
+        
+                        let top = rect.top - 92;
+                        if (top < 56) top = rect.bottom + 10;
+        
+                        screenPet.style.left = `${left}px`;
+                        screenPet.style.top = `${top}px`;
+                        return;
+                    }
+        
+                    settleRAF = requestAnimationFrame(check);
+                }
+                settleRAF = requestAnimationFrame(check);
+            }
         
             formInputs.forEach(el => {
                 el.addEventListener('focus', () => {
-                    const guidance = fieldThoughts[el.id] || "悄悄盯著你填寫... 👀";
+                    activeEl = el;
+                    if (blurTimeout) clearTimeout(blurTimeout);
                     if (shrinkTimeout) clearTimeout(shrinkTimeout);
-                    if (repositionTimeout) clearTimeout(repositionTimeout);
+        
+                    const guidance = fieldThoughts[el.id] || "悄悄盯著你填寫... 👀";
         
                     if (isMobile()) {
                         setPetState('watching');
-                        screenPet.style.transition = 'top 0.35s ease, left 0.35s ease, opacity 0.35s ease, transform 0.35s ease';
+                        screenPet.style.transition = 'top 0.3s ease, left 0.3s ease, opacity 0.35s ease, transform 0.35s ease';
                         screenPet.style.bottom = 'auto';
                         screenPet.style.opacity = '1';
                         screenPet.style.transform = 'scale(0.55)';
         
-                        // 延遲一點點，等手機鍵盤彈出、畫面捲動穩定後，再抓輸入框實際位置
-                        repositionTimeout = setTimeout(() => {
-                            const rect = el.getBoundingClientRect();
-                            const petWidth = 90; // 縮小後大約的寬度
-                            let left = rect.left + rect.width / 2 - petWidth / 2;
-                            left = Math.max(8, Math.min(left, window.innerWidth - petWidth - 8));
-        
-                            let top = rect.top - 92; // 貼在輸入框正上方
-                            if (top < 56) top = rect.bottom + 10; // 如果上面空間不夠（欄位太靠近頂部），改貼在下方
-        
-                            screenPet.style.left = `${left}px`;
-                            screenPet.style.top = `${top}px`;
-                        }, 280);
-        
+                        positionPetAbove(el);
                         triggerPetSpeak(guidance, 2600);
         
-                        // 先讓使用者看清楚對話 1.4 秒，再慢慢淡出縮小、不擋輸入
                         shrinkTimeout = setTimeout(() => {
+                            if (activeEl !== el) return;
                             screenPet.style.opacity = '0.3';
                             screenPet.style.transform = 'scale(0.4)';
                         }, 1500);
@@ -1336,7 +1395,6 @@
                         return;
                     }
         
-                    // 桌面版維持原本走到中間的效果
                     setPetState('watching');
                     petX = (window.innerWidth / 2) - 80;
                     screenPet.style.left = `${petX}px`;
@@ -1347,14 +1405,20 @@
         
                 el.addEventListener('blur', () => {
                     if (shrinkTimeout) clearTimeout(shrinkTimeout);
-                    if (repositionTimeout) clearTimeout(repositionTimeout);
+                    cancelSettle();
         
-                    screenPet.style.top = 'auto';
-                    screenPet.style.bottom = '16px';
-                    screenPet.style.opacity = '1';
-                    screenPet.style.transform = 'scale(1)';
-                    petBody.style.transform = 'scale(1) rotate(0deg)';
-                    setPetState('idle');
+                    // 延遲一點點才收回角落，如果馬上被下一個欄位的 focus 接手，這段就會被取消，
+                    // 避免「先跳回角落，下一瞬間又被拉去新欄位」的閃爍感
+                    blurTimeout = setTimeout(() => {
+                        if (activeEl !== el) return; // 已經被新的 focus 接管了
+                        activeEl = null;
+                        screenPet.style.top = 'auto';
+                        screenPet.style.bottom = '16px';
+                        screenPet.style.opacity = '1';
+                        screenPet.style.transform = 'scale(1)';
+                        petBody.style.transform = 'scale(1) rotate(0deg)';
+                        setPetState('idle');
+                    }, 50);
                 });
             });
         }
