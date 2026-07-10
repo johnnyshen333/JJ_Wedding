@@ -657,55 +657,12 @@
             <!-- Sleep Particles Container -->
             <div id="sleepParticles" class="absolute -top-4 left-0"></div>
 
-            <!-- Enlarged Dog Head & White Schnauzer Body Container -->
-            <div class="relative w-24 h-28 md:w-40 md:h-44 flex flex-col items-center justify-end">
-                <!-- Dog Head (Locked to custom baby Schnauzer image) -->
-                <div id="petHeadContainer" class="absolute top-1 w-16 h-16 md:w-28 md:h-28 rounded-full overflow-hidden shadow-md z-10">
-                    <img id="petImg" src="https://i.postimg.cc/zfDQrWfM/aaa.png" class="w-full h-full object-cover" alt="White Schnauzer Angel" onerror="...">
+            <!-- Full-body Dog Photo (Pre-cut Transparent PNG) -->
+            <div class="relative w-24 h-32 md:w-36 md:h-48 flex items-end justify-center">
+                <div id="petBody" class="w-full h-full transition-all duration-300">
+                    <img id="petImg" src="https://i.postimg.cc/mr4R4ZQZ/Full-Size-Render-21.jpg" class="w-full h-full object-contain drop-shadow-md" alt="Wedding Dog" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'0.9em\' font-size=\'80\'>🐶</text></svg>'">
                 </div>
-                <!-- Dog Body (White Schnauzer Handdrawn SVG) -->
-                <div id="petBody" class="w-24 h-28 md:w-36 md:h-40 transition-all duration-300 z-0">
-                    <svg viewBox="0 0 100 110" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                        <!-- 後腳（較暗一點營造立體感） -->
-                        <rect x="24" y="80" width="12" height="26" rx="6" fill="#ece6dc"/>
-                        <rect x="64" y="80" width="12" height="26" rx="6" fill="#ece6dc"/>
-                
-                        <!-- 蓬鬆尾巴 -->
-                        <circle cx="83" cy="53" r="11" fill="#ffffff"/>
-                        <circle cx="89" cy="41" r="9" fill="#ffffff"/>
-                        <circle cx="91" cy="29" r="7" fill="#ffffff"/>
-                
-                        <!-- 前腳 -->
-                        <rect x="20" y="82" width="12" height="28" rx="6" fill="#ffffff" stroke="#ece6dc" stroke-width="1"/>
-                        <rect x="68" y="82" width="12" height="28" rx="6" fill="#ffffff" stroke="#ece6dc" stroke-width="1"/>
-                
-                        <!-- 毛茸茸腳掌 -->
-                        <ellipse cx="26" cy="108" rx="8" ry="5" fill="#ffffff"/>
-                        <ellipse cx="74" cy="108" rx="8" ry="5" fill="#ffffff"/>
-                
-                        <!-- 毛球堆疊出的蓬鬆身體 -->
-                        <g fill="#ffffff">
-                            <circle cx="50" cy="56" r="30"/>
-                            <circle cx="25" cy="59" r="16"/>
-                            <circle cx="75" cy="59" r="16"/>
-                            <circle cx="34" cy="35" r="15"/>
-                            <circle cx="66" cy="35" r="15"/>
-                            <circle cx="50" cy="27" r="17"/>
-                        </g>
-                
-                        <!-- 淡淡陰影，增加立體毛感 -->
-                        <ellipse cx="50" cy="72" rx="26" ry="10" fill="#f4efe9" opacity="0.5"/>
-                
-                        <!-- 金色蝴蝶結項圈 -->
-                        <path d="M42 41 L50 47 L42 53 Z" fill="#d4a373"/>
-                        <path d="M58 41 L50 47 L58 53 Z" fill="#d4a373"/>
-                        <circle cx="50" cy="47" r="3" fill="#c08d5b"/>
-                    </svg>
-                </div>
-            
-            <!-- Shadow -->
-            <div class="w-16 h-2 md:w-24 bg-black/10 rounded-full mt-1 filter blur-[1px]"></div>
-        </div>
+            </div>
     </div>
 
     <!-- Background Music Element -->
