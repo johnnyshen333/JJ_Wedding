@@ -1294,25 +1294,33 @@
         // React when user types/clicks on RSVP inputs (Custom order mapping implemented)
         function initFormEventTracking() {
             const formInputs = document.querySelectorAll('#rsvpForm input, #rsvpForm select, #rsvpForm textarea');
-            
+            const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+        
             formInputs.forEach(el => {
                 el.addEventListener('focus', () => {
-                    // Pet snaps to attention
+                    const guidance = fieldThoughts[el.id] || "悄悄盯著你填寫... 👀";
+        
+                    if (isMobile()) {
+                        // 手機版：狗狗留在原地角落，縮小、變半透明，不擋填寫區
+                        setPetState('watching');
+                        screenPet.style.opacity = '0.4';
+                        screenPet.style.transform = 'scale(0.65)';
+                        triggerPetSpeak(guidance, 2200);
+                        return;
+                    }
+        
+                    // 桌面版維持原本走到中間的效果
                     setPetState('watching');
-                    
-                    // Walk over to the center-bottom of screen and peek up to "watch"
                     petX = (window.innerWidth / 2) - 80;
                     screenPet.style.left = `${petX}px`;
                     screenPet.style.bottom = '15px';
                     petBody.style.transform = 'scale(1.1) rotate(-3deg)';
-                    
-                    // Retrieve specific guided response from mapping
-                    const guidance = fieldThoughts[el.id] || "悄悄盯著你填寫... 👀";
                     triggerPetSpeak(guidance);
                 });
-
+        
                 el.addEventListener('blur', () => {
-                    // Go back to normal state
+                    screenPet.style.opacity = '1';
+                    screenPet.style.transform = 'scale(1)';
                     petBody.style.transform = 'scale(1) rotate(0deg)';
                     screenPet.style.bottom = '16px';
                     setPetState('idle');
