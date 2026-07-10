@@ -920,28 +920,27 @@
             if (submitBtn) submitBtn.disabled = true;
 
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                // no-cors：避免瀏覽器因為讀不到跨網域回應內容而直接擋掉整個請求
+                // （代價是我們沒辦法再讀取 Apps Script 回傳的真正成功/失敗結果，
+                //  只要 fetch 沒有丟出例外，就代表請求已經送達 Google 的伺服器）
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    // 用 text/plain 避免瀏覽器發出 CORS 預檢請求（Apps Script 不太處理 OPTIONS）
+                    mode: 'no-cors',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payload)
                 });
-                const result = await response.json();
 
-                if (result && result.result === 'success') {
-                    triggerPetSpeak("收到你的祝福囉！愛你汪汪！❤️🐾");
-                    const successAlert = document.getElementById('success_alert');
-                    if (successAlert) {
-                        successAlert.classList.remove('hidden');
-                        successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                } else {
-                    throw new Error((result && result.error) || 'unknown_error');
+                triggerPetSpeak("收到你的祝福囉！愛你汪汪！❤️🐾");
+                const successAlert = document.getElementById('success_alert');
+                if (successAlert) {
+                    successAlert.classList.remove('hidden');
+                    successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             } catch (err) {
                 console.error('RSVP submission failed:', err);
                 triggerPetSpeak("糟糕，好像送出失敗了，可以再試一次嗎？🐾", 4000);
-                alert('送出失敗了，麻煩檢查網路連線後再試一次，或直接聯絡新人 🙏');
+                // 暫時性除錯訊息：把實際錯誤內容顯示出來，方便排查問題根源
+                alert('送出失敗了 🙏\n\n除錯資訊（請截圖給開發者）：\n' + (err && err.message ? err.message : String(err)));
             } finally {
                 isSubmitting = false;
                 if (submitBtn) submitBtn.disabled = false;
