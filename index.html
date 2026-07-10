@@ -1295,17 +1295,26 @@
         function initFormEventTracking() {
             const formInputs = document.querySelectorAll('#rsvpForm input, #rsvpForm select, #rsvpForm textarea');
             const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+            let shrinkTimeout = null;
         
             formInputs.forEach(el => {
                 el.addEventListener('focus', () => {
                     const guidance = fieldThoughts[el.id] || "悄悄盯著你填寫... 👀";
+                    if (shrinkTimeout) clearTimeout(shrinkTimeout);
         
                     if (isMobile()) {
-                        // 手機版：狗狗留在原地角落，縮小、變半透明，不擋填寫區
+                        // 第一階段：先正常大小、正常顯示，讓使用者看清楚狗狗說的話
                         setPetState('watching');
-                        screenPet.style.opacity = '0.4';
-                        screenPet.style.transform = 'scale(0.65)';
-                        triggerPetSpeak(guidance, 2200);
+                        screenPet.style.opacity = '1';
+                        screenPet.style.transform = 'scale(1)';
+                        triggerPetSpeak(guidance, 2600);
+        
+                        // 第二階段：停留一下下之後，才慢慢淡出、縮小、讓開
+                        shrinkTimeout = setTimeout(() => {
+                            screenPet.style.opacity = '0.35';
+                            screenPet.style.transform = 'scale(0.6)';
+                        }, 1400);
+        
                         return;
                     }
         
@@ -1319,6 +1328,7 @@
                 });
         
                 el.addEventListener('blur', () => {
+                    if (shrinkTimeout) clearTimeout(shrinkTimeout);
                     screenPet.style.opacity = '1';
                     screenPet.style.transform = 'scale(1)';
                     petBody.style.transform = 'scale(1) rotate(0deg)';
