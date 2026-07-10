@@ -695,6 +695,10 @@
         // ==========================================
         const CUSTOM_MUSIC_URL = "https://files.catbox.moe/zjvp8j.mp3"; 
 
+        // 📮 RSVP 送出改用 Google Apps Script Web App 接收（取代原本的隱藏 iframe + Google 表單方式）
+        // 請依照說明部署 Apps Script，並把下面換成你自己的 Web App 網址（結尾是 /exec）
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyHwwzHg1RsRsF3msTtIgEkkcHwmVmPmZS1R4d7GWnVDN3NHrxsu8pQPWMG9yHb9fk3fA/exec";
+
         // 1. Mobile Menu Toggle Control
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
@@ -852,18 +856,18 @@
             }
         }
 
-        // 5. Submit validation & hidden Iframe target handler
+        // 5. Submit validation & Google Apps Script submission handler
         let isSubmitting = false;
-        function handleFormSubmission(event) {
+        async function handleFormSubmission(event) {
+            event.preventDefault(); // 一律攔截原生送出，改用下面的 fetch 送到 Apps Script
+
             if (isSubmitting) {
-                event.preventDefault();
                 return;
             }
 
             // 防呆檢查：Email 格式必須正確才能送出
             const emailValid = validateEmailField(true);
             if (!emailValid) {
-                event.preventDefault();
                 const emailInput = document.getElementById('input_email');
                 if (emailInput) {
                     emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -872,7 +876,7 @@
                 triggerPetSpeak("信箱格式好像怪怪的，再檢查一下嘛！🐾", 3500);
                 return;
             }
-            
+
             const attendanceVal = document.getElementById('input_attendance')?.value;
             const peopleCountInput = document.getElementById('input_people_count');
             const dietInput = document.getElementById('input_diet');
@@ -882,7 +886,7 @@
 
             const isBanquet = (attendanceVal === '參加證婚儀式與晚宴' || attendanceVal === '僅參加晚宴');
 
-            // Business logic adjustments before sending raw post data to Google Form prefilled endpoint
+            // Business logic adjustments before sending the data onward
             if (attendanceVal === '滿滿祝福，不克前往') {
                 peopleCountInput.value = '0';
                 kidsChairInput.value = '0';
@@ -893,17 +897,55 @@
                 kidsChairInput.value = kidsChairInput.value || '0';
             }
 
+            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.indexOf('PASTE_YOUR') === 0) {
+                triggerPetSpeak("表單還沒接好，麻煩主人先設定 Apps Script 網址喔！🐾", 4000);
+                return;
+            }
+
+            const payload = {
+                name: document.getElementById('input_name')?.value.trim() || '',
+                phone: document.getElementById('input_phone')?.value.trim() || '',
+                email: document.getElementById('input_email')?.value.trim() || '',
+                relation: document.getElementById('input_relation')?.value || '',
+                attendance: attendanceVal || '',
+                peopleCount: peopleCountInput.value || '0',
+                vegCount: dietInput.value || '0',
+                kidsChairs: kidsChairInput.value || '0',
+                otherReqs: document.getElementById('input_other_reqs')?.value.trim() || '',
+                message: document.getElementById('input_message')?.value.trim() || ''
+            };
+
             isSubmitting = true;
-            triggerPetSpeak("收到你的祝福囉！愛你汪汪！❤️🐾");
-            
-            setTimeout(() => {
-                const successAlert = document.getElementById('success_alert');
-                if (successAlert) {
-                    successAlert.classList.remove('hidden');
-                    successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const submitBtn = document.querySelector('#rsvpForm button[type="submit"]');
+            if (submitBtn) submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    // 用 text/plain 避免瀏覽器發出 CORS 預檢請求（Apps Script 不太處理 OPTIONS）
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+
+                if (result && result.result === 'success') {
+                    triggerPetSpeak("收到你的祝福囉！愛你汪汪！❤️🐾");
+                    const successAlert = document.getElementById('success_alert');
+                    if (successAlert) {
+                        successAlert.classList.remove('hidden');
+                        successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                } else {
+                    throw new Error((result && result.error) || 'unknown_error');
                 }
+            } catch (err) {
+                console.error('RSVP submission failed:', err);
+                triggerPetSpeak("糟糕，好像送出失敗了，可以再試一次嗎？🐾", 4000);
+                alert('送出失敗了，麻煩檢查網路連線後再試一次，或直接聯絡新人 🙏');
+            } finally {
                 isSubmitting = false;
-            }, 1200);
+                if (submitBtn) submitBtn.disabled = false;
+            }
         }
 
         function resetRsvpView() {
