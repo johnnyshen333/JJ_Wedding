@@ -503,8 +503,11 @@
                         <label class="block text-xs font-semibold tracking-wider text-neutral-600">
                             聯絡電話 PHONE <span class="text-red-400">*</span>
                         </label>
-                        <input type="tel" name="entry.972973653" id="input_phone" required placeholder="請輸入聯絡電話" 
+                        <input type="tel" name="entry.972973653" id="input_phone" required placeholder="例如：0912345678" 
+                               inputmode="numeric" maxlength="10"
+                               oninput="validatePhoneField()" onblur="validatePhoneField(true)"
                                class="w-full px-4 py-3 bg-warmSand border border-neutral-200 rounded-xl focus:border-morandiGold focus:ring-1 focus:ring-morandiGold transition duration-200 outline-none text-sm placeholder-neutral-400">
+                        <p id="phone_error" class="text-[11px] text-red-400 font-light hidden">請輸入正確的台灣電話號碼，開頭需為 0，共 10 碼數字</p>
                     </div>
 
                     <!-- 3. 電子郵件 Email (Bilingual Label, Blank Input, with inline validation) -->
@@ -800,6 +803,45 @@
             return isValid;
         }
 
+        // 電話號碼防呆：台灣手機/市話開頭必須是 0，且限定 10 碼數字
+        const phoneRegex = /^0\d{9}$/;
+        
+        function validatePhoneField(isBlur) {
+            const phoneInput = document.getElementById('input_phone');
+            const phoneError = document.getElementById('phone_error');
+            if (!phoneInput || !phoneError) return true;
+        
+            // 自動過濾非數字字元（例如貼上時夾帶空格、破折號）
+            phoneInput.value = phoneInput.value.replace(/[^\d]/g, '');
+        
+            const value = phoneInput.value.trim();
+        
+            if (value === '') {
+                phoneInput.classList.remove('border-red-400', 'border-morandiGreen');
+                phoneInput.classList.add('border-neutral-200');
+                phoneError.classList.add('hidden');
+                return false;
+            }
+        
+            const isValid = phoneRegex.test(value);
+        
+            if (isValid) {
+                phoneInput.classList.remove('border-red-400');
+                phoneInput.classList.add('border-morandiGreen');
+                phoneError.classList.add('hidden');
+            } else {
+                phoneInput.classList.remove('border-morandiGreen');
+                phoneInput.classList.add('border-red-400');
+                if (isBlur) {
+                    phoneError.classList.remove('hidden');
+                } else {
+                    phoneError.classList.add('hidden');
+                }
+            }
+        
+            return isValid;
+        }
+        
         // 4. Smart Form Conditional Logic Rules
         function evaluateFormRules() {
             const attendanceVal = document.getElementById('input_attendance')?.value;
@@ -847,6 +889,18 @@
                 return;
             }
 
+            // 防呆檢查：電話號碼必須是 10 碼且開頭為 0
+            const phoneValid = validatePhoneField(true);
+            if (!phoneValid) {
+                const phoneInput = document.getElementById('input_phone');
+                if (phoneInput) {
+                    phoneInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    phoneInput.focus();
+                }
+                triggerPetSpeak("電話號碼怪怪的耶，記得開頭要有0，共10碼喔！🐾", 3500);
+                return;
+            }
+            
             // 防呆檢查：Email 格式必須正確才能送出
             const emailValid = validateEmailField(true);
             if (!emailValid) {
